@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 
 import { useEffect, useRef, useState } from "react";
-import { useGLTF, useAnimations, useCursor } from "@react-three/drei";
+import { useGLTF, useAnimations } from "@react-three/drei";
 
 export default function ThreeModel(props): JSX.Element {
   const [hovered, setHovered] = useState("");
@@ -37,6 +37,8 @@ export default function ThreeModel(props): JSX.Element {
           material={materials.white}
           position={[-10.6, -1.3, -6.73]}
           rotation={[Math.PI / 2, 0, 0]}
+          onPointerOver={onHover("canvasHover")}
+          onPointerOut={onHover("")}
         />
         <mesh
           name="book1"
@@ -120,6 +122,8 @@ export default function ThreeModel(props): JSX.Element {
           material={materials.black1}
           position={[12.16, 2.81, 0.57]}
           rotation={[Math.PI / 2, 0, 0]}
+          onPointerOver={onHover("tvHover")}
+          onPointerOut={onHover("")}
         />
         <mesh
           name="board"
