@@ -34,6 +34,7 @@ export default function ThreeMain(): JSX.Element {
           shadow-camera-bottom={-20}
           shadow-bias={-0.0002}
         />
+
         <ThreeModel />
       </Canvas>
     </Container>
