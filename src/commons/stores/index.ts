@@ -1,5 +1,6 @@
 import { atom, selector } from "recoil";
 import { getNewAccessToken } from "../libraries/getNewAccessToken";
+import { IUser } from "../types/generated/types";
 
 export const accessTokenState = atom({
   key: "accessTokenState",
@@ -17,4 +18,9 @@ export const restoreAccessTokenLoadable = selector({
 export const searchState = atom({
   key: "searchState",
   default: "",
+});
+
+export const loggedInUserState = atom<Partial<IUser>>({
+  key: "loggedInUserState",
+  default: {},
 });

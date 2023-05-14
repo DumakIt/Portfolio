@@ -4,7 +4,7 @@ import Link from "next/link";
 
 interface IProps {
   isScroll?: boolean;
-  isToggle?: boolean;
+  istoggle?: string;
 }
 
 export const HeaderWrapper = styled.header`
@@ -26,6 +26,44 @@ export const LogoWrapper = styled.div`
   & > img {
     height: 40%;
   }
+`;
+
+export const UserWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+`;
+
+export const UserName = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  color: white;
+
+  & > span:first-of-type {
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  & > span:last-of-type {
+    font-weight: 700;
+  }
+`;
+
+export const Charge = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+`;
+
+export const LogOut = styled.div`
+  font-weight: 500;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
 `;
 
 export const FuncWrapper = styled.div`
@@ -64,19 +102,20 @@ export const SearchBox = styled.div<IProps>`
   flex-direction: row;
   justify-content: end;
   align-items: center;
-  width: ${(props) => (props.isToggle === true ? "300px" : "60px")};
+  width: ${(props) => (props.istoggle === "true" ? "300px" : "60px")};
   height: 60px;
   padding: 0 15px;
   border: 2px solid black;
   border-radius: 60px;
-  background-color: ${(props) => (props.isToggle === true ? "white" : "black")};
+  background-color: ${(props) =>
+    props.istoggle === "true" ? "white" : "black"};
 
   transition: ${(props) =>
-    props.isScroll === true ? "width 0.7s ease 0.7s ease" : "width 0.7s ease"};
+    props.isScroll === true ? "width 0.7s ease" : "width 0.7s ease"};
 `;
 
 export const SearchBoxInput = styled.input<IProps>`
-  display: ${(props) => (props.isToggle === true ? "block" : "none")};
+  display: ${(props) => (props.istoggle === "true" ? "block" : "none")};
   height: 100%;
   width: 100%;
   background-color: transparent;
@@ -90,6 +129,6 @@ export const SearchBoxInput = styled.input<IProps>`
 
 export const CustomSearchOutlined = styled(SearchOutlined)<IProps>`
   margin-left: 10px;
-  color: ${(props) => (props.isToggle === true ? "black" : "white")};
+  color: ${(props) => (props.istoggle === "true" ? "black" : "white")};
   font-size: 30px;
 `;

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import LayoutHeader from "./header/LayoutHeader";
+import LayoutHeader from "./header/layoutHeader";
 
 interface ILayoutPros {
   children: JSX.Element;

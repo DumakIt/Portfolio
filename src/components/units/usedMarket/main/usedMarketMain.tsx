@@ -1,17 +1,22 @@
-import * as S from "./MainBodyStyles";
+import * as S from "./usedMarketMainStyles";
 import InfiniteScroll from "react-infinite-scroller";
 import { useQueryFetchUsedItems } from "../../../commons/hooks/query/useQueryFetchUseditems";
 import { CreateAtTime } from "../../../commons/utility/useCreateAtTime";
 import { IUseditem } from "../../../../commons/types/generated/types";
+import { useRouterMovePage } from "../../../commons/hooks/custom/useRouterMovePage";
 
-export default function MainBody(): JSX.Element {
+export default function UsedMarketMain(): JSX.Element {
   const { data, FetchMore } = useQueryFetchUsedItems();
+  const { onClickMovePage } = useRouterMovePage();
 
   return (
     <InfiniteScroll loadMore={FetchMore} hasMore={true}>
       <S.Container>
         {data?.fetchUseditems.map((el: IUseditem) => (
-          <S.ItemWrapper key={el._id}>
+          <S.ItemWrapper
+            key={el._id}
+            onClick={onClickMovePage(`/usedMarket/${el._id}`)}
+          >
             <S.ImgWrapper isImg={Boolean(el.images?.[0])}>
               <img
                 src={
