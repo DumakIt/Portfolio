@@ -34,9 +34,7 @@ export default function DetailHeader(
                 onClick={onClickMovePage(`/usedMarket/${props.id}/edit`)}
               />
               <S.ItemBtnDelete
-                onClick={() => {
-                  deleteUsedItem({ useditemId: props.id });
-                }}
+                onClick={deleteUsedItem({ useditemId: props.id })}
               />
             </>
           )}

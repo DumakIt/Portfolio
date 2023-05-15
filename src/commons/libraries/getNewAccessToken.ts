@@ -22,7 +22,5 @@ export const getNewAccessToken = async (): Promise<string | undefined> => {
 
     const newAccessToken = result.restoreAccessToken.accessToken;
     return newAccessToken;
-  } catch (error) {
-    if (error instanceof Error) console.log(error.message, "에러메세지");
-  }
+  } catch (error) {}
 };
