@@ -1,46 +1,45 @@
+import { useRecoilState } from "recoil";
+import { loggedInUserState } from "../../../../../commons/stores";
 import { useRouterMovePage } from "../../../../commons/hooks/custom/useRouterMovePage";
 import { useMutationCreatePointTransactionOfBuyingAndSelling } from "../../../../commons/hooks/mutation/useMutationCreatePointTransactionOfBuyingAndSelling";
 import { useMutationDeleteUsedItem } from "../../../../commons/hooks/mutation/useMutationDeleteUsedItem";
-import { useMutationToggleUsedItemPick } from "../../../../commons/hooks/mutation/useMutationToggleUsedItemPick";
 import * as S from "./detailHeaderStyles";
 import { IFinalDetailHeaderProps } from "./detailHeaderTypes";
 
 export default function DetailHeader(
   props: IFinalDetailHeaderProps
 ): JSX.Element {
+  const [loggedInUser] = useRecoilState(loggedInUserState);
   const { onClickMovePage } = useRouterMovePage();
   const { deleteUsedItem } = useMutationDeleteUsedItem();
   const { createPointTransactionOfBuyingAndSelling } =
     useMutationCreatePointTransactionOfBuyingAndSelling();
-  const { toggleUseditemPick } = useMutationToggleUsedItemPick();
-
-  const onClickPickBtn = (): void => {
-    void toggleUseditemPick({ useditemId: props.id });
-  };
 
   return (
     <S.Container>
       <S.ImgWrapper>
         <img
           src={
-            props.data?.images?.[0] !== undefined
+            props.data?.images?.[0] !== ""
               ? `https://storage.googleapis.com/${props.data?.images[0]}`
-              : "/main/detailDefault.png"
+              : "/images/defaultItem.png"
           }
         />
       </S.ImgWrapper>
       <S.ItemInfoWrapper>
         <S.FuncBtnBox>
-          <S.ItemBtnUpdate
-            src="/images/editIcon.png"
-            onClick={onClickMovePage(`/final/${props.id}/edit`)}
-          />
-          <S.ItemBtnDelete
-            src="/images/deleteIcon.png"
-            onClick={() => {
-              deleteUsedItem({ useditemId: props.id });
-            }}
-          />
+          {loggedInUser._id === props.data?.seller?._id && (
+            <>
+              <S.ItemBtnUpdate
+                onClick={onClickMovePage(`/usedMarket/${props.id}/edit`)}
+              />
+              <S.ItemBtnDelete
+                onClick={() => {
+                  deleteUsedItem({ useditemId: props.id });
+                }}
+              />
+            </>
+          )}
         </S.FuncBtnBox>
         <S.ItemName>{props.data?.name}</S.ItemName>
 

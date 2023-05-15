@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, MouseEvent, SetStateAction } from "react";
 import { FieldValues, UseFormReset } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { loggedInUserState } from "../../../commons/stores";
@@ -7,7 +7,7 @@ import {
   Maybe,
 } from "../../../commons/types/generated/types";
 import { useMutationDeleteUsedItemQuestion } from "../hooks/mutation/useMutationDeleteUsedItemQuestion";
-import * as S from "./detailCommentStyles";
+import * as S from "./commentStyles";
 
 interface IDetailCommentProps {
   id: string;
@@ -15,14 +15,15 @@ interface IDetailCommentProps {
   picture: Maybe<string> | undefined;
   reset: UseFormReset<FieldValues>;
   setIsActive: Dispatch<SetStateAction<string>>;
+  onClickIsActive: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
-export default function DetailComment(props: IDetailCommentProps): JSX.Element {
+export default function Comment(props: IDetailCommentProps): JSX.Element {
   const [loggedInUser] = useRecoilState(loggedInUserState);
   const { deleteUsedItemQuestion } = useMutationDeleteUsedItemQuestion();
 
   const onClickCommentUpdate = (args) => (event) => {
-    props.reset({ UpdateContents: args.contents });
+    props.reset({ UpdateComment: args.contents });
     props.setIsActive(event.currentTarget.id);
   };
 
@@ -62,7 +63,12 @@ export default function DetailComment(props: IDetailCommentProps): JSX.Element {
         )}
       </S.CommentWriterInfoContainer>
 
-      <S.CommentContents>{props.data.contents}</S.CommentContents>
+      <S.CommentContents
+        id={props.data._id + "ReplyWrite"}
+        onClick={props.onClickIsActive}
+      >
+        {props.data.contents}
+      </S.CommentContents>
     </>
   );
 }

@@ -21,9 +21,6 @@ export const FETCH_USED_ITEM = gql`
         picture
       }
       useditemAddress {
-        zipcode
-        address
-        addressDetail
         lat
         lng
       }

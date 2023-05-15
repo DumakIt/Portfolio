@@ -4,10 +4,25 @@ interface IImgWrapperProps {
   isImg: boolean;
 }
 
-export const Container = styled.section`
-  gap: 50px 20px;
+export const Container = styled.div`
+  margin: 0 auto;
   width: 1600px;
-  margin: 20px auto;
+`;
+
+export const WriteBtn = styled.button`
+  width: 180px;
+  height: 80px;
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 24px;
+  color: white;
+  background-color: black;
+  cursor: pointer;
+`;
+
+export const ItemContainer = styled.section`
+  gap: 50px 20px;
+  margin: 20px 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -22,9 +37,9 @@ export const ItemWrapper = styled.div`
 
 export const ImgWrapper = styled.div`
   width: 100%;
-  aspect-ratio: 5 / 6;
+  aspect-ratio: 5 / 5;
   background-color: ${(props: IImgWrapperProps) =>
-    props.isImg ? "" : `hsl(${Math.floor(Math.random() * 360)}, 100%, 80%)`};
+    props.isImg ? "" : "#BDBDBD"};
   & > img {
     width: 100%;
     height: 100%;

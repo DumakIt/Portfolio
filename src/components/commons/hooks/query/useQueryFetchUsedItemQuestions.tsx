@@ -26,9 +26,9 @@ export const useQueryFetchUsedItemQuestions = (
     IQueryFetchUseditemQuestionsArgs
   >(FETCH_USED_ITEM_QUESTIONS, { variables });
 
-  const FetchMore = () => {
+  const FetchMore = async () => {
     if (data === undefined) return;
-    fetchMore({
+    await fetchMore({
       variables: {
         page: Math.ceil((data?.fetchUseditemQuestions.length ?? 10) / 10) + 1,
       },

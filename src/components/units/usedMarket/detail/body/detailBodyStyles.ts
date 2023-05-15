@@ -1,7 +1,8 @@
+import { EnvironmentOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  width: 925px;
+  width: 100%;
 `;
 
 export const ItemInfoTitle = styled.div`
@@ -58,4 +59,8 @@ export const SellLocationTitle = styled.div`
     font-size: 24px;
     margin-left: 10px;
   }
+`;
+
+export const LocationIcon = styled(EnvironmentOutlined)`
+  font-size: 32px;
 `;

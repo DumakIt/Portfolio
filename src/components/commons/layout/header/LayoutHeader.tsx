@@ -5,6 +5,7 @@ import { useSearch } from "../../hooks/custom/useSearch";
 import { useSetIsToggle } from "../../hooks/custom/useSetIsToggle";
 import { useMutationLogoutUser } from "../../hooks/mutation/useMutationLogoutUser";
 import { useQueryFetchUserLoggedIn } from "../../hooks/query/useQueryFetchUserLoggedIn";
+import PointChargeModal from "../../pointChargeModal/pointChargeModal";
 import * as S from "./layoutHeaderStyles";
 
 export default function LayoutHeader(): JSX.Element {
@@ -12,6 +13,7 @@ export default function LayoutHeader(): JSX.Element {
   const isScroll = useEffectHandleScroll();
   const onChangeSearch = useSearch();
   const [isToggle, changeIsToggle] = useSetIsToggle();
+  const [isOpen, changeIsOpen] = useSetIsToggle();
   const { data } = useQueryFetchUserLoggedIn();
   const { logoutUser } = useMutationLogoutUser();
   const { onClickMovePage } = useRouterMovePage();
@@ -31,8 +33,13 @@ export default function LayoutHeader(): JSX.Element {
               </span>
               <span>P</span>
             </S.UserName>
-            <S.Charge onClick={changeIsToggle}>충전</S.Charge>
+            <S.Charge onClick={changeIsOpen}>충전</S.Charge>
             <S.LogOut onClick={logoutUser}>로그아웃</S.LogOut>
+            <PointChargeModal
+              isOpen={isOpen}
+              changeIsOpen={changeIsOpen}
+              data={data?.fetchUserLoggedIn}
+            />
           </S.UserWrapper>
         ) : (
           <S.FuncWrapper>

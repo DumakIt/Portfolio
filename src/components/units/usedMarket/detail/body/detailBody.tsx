@@ -1,20 +1,9 @@
 import * as S from "./detailBodyStyles";
 import Dompurify from "dompurify";
-import KakaoMapDetail from "../../../../commons/kakaoMap/kakaoMapDetail";
-import { useEffect, useState } from "react";
+import KakaoMapDetail from "../../../../commons/kakaoMapDetail/kakaoMapDetail";
 import { IFinalDetailBodyProps } from "./detailBodyTypes";
 
 export default function DetailBody(props: IFinalDetailBodyProps): JSX.Element {
-  const [keyword, setKeyword] = useState("서울 시청");
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    if (props.data?.useditemAddress?.address) {
-      setKeyword(props.data?.useditemAddress?.address);
-      setIsOpen(true);
-    }
-  }, [props.data]);
-
   return (
     <S.Container>
       <S.ItemInfoTitle>상품정보</S.ItemInfoTitle>
@@ -45,17 +34,15 @@ export default function DetailBody(props: IFinalDetailBodyProps): JSX.Element {
         <S.ItemContents></S.ItemContents>
       )}
       <S.SellLocationWrapper>
-        {props.data?.useditemAddress?.address && (
-          <S.SellLocationTitle>
-            <img src="/images/gps.png" />
-            <div>거래지역</div>
-          </S.SellLocationTitle>
+        {props.data?.useditemAddress && (
+          <>
+            <S.SellLocationTitle>
+              <S.LocationIcon />
+              <div>거래지역</div>
+            </S.SellLocationTitle>
+            <KakaoMapDetail data={props.data?.useditemAddress} />
+          </>
         )}
-        <KakaoMapDetail
-          keyword={keyword}
-          isOpen={isOpen}
-          address={props.data?.useditemAddress}
-        />
       </S.SellLocationWrapper>
     </S.Container>
   );

@@ -7,7 +7,7 @@ import {
 } from "react-hook-form";
 import { IUseditemQuestion } from "../../../commons/types/generated/types";
 import { useMutationUpdateUsedItemQuestion } from "../hooks/mutation/useMutationUpdateUsedItemQuestion";
-import * as S from "./detailCommentUpdateStyles";
+import * as S from "./commentUpdateStyles";
 
 interface IDetailCommentUpdateProps {
   id: string;
@@ -18,16 +18,14 @@ interface IDetailCommentUpdateProps {
   setIsActive: Dispatch<SetStateAction<string>>;
 }
 
-export default function DetailCommentUpdate(
+export default function CommentUpdate(
   props: IDetailCommentUpdateProps
 ): JSX.Element {
   const { updateUsedItemQuestion } = useMutationUpdateUsedItemQuestion();
 
-  const onClickUpdateCanCel =
-    (args: { contents: string; id?: string }) => () => {
-      props.reset({ UpdateContents: args.contents });
-      props.setIsActive("");
-    };
+  const onClickUpdateCanCel = () => {
+    props.setIsActive("");
+  };
 
   return (
     <form
@@ -43,16 +41,10 @@ export default function DetailCommentUpdate(
       <S.CommentTextareaWrapper>
         <textarea
           defaultValue={props.data.contents}
-          {...props.register("UpdateContents")}
+          {...props.register("UpdateComment")}
         />
         <S.CommentUpdateBtnWrapper>
-          <S.CommentUpdateCanCel
-            type="button"
-            onClick={onClickUpdateCanCel({
-              contents: props.data.contents,
-              id: props.data._id,
-            })}
-          >
+          <S.CommentUpdateCanCel type="button" onClick={onClickUpdateCanCel}>
             취소하기
           </S.CommentUpdateCanCel>
           <S.CommentUpdateSubmit>수정하기</S.CommentUpdateSubmit>

@@ -92,6 +92,7 @@ export const CommentWriteBtn = styled.button`
   font-size: 20px;
   background: black;
   color: white;
+  cursor: pointer;
 `;
 
 export const CommentsContainer = styled.div`

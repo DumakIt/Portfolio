@@ -10,32 +10,37 @@ export default function UsedMarketMain(): JSX.Element {
   const { onClickMovePage } = useRouterMovePage();
 
   return (
-    <InfiniteScroll loadMore={FetchMore} hasMore={true}>
-      <S.Container>
-        {data?.fetchUseditems.map((el: IUseditem) => (
-          <S.ItemWrapper
-            key={el._id}
-            onClick={onClickMovePage(`/usedMarket/${el._id}`)}
-          >
-            <S.ImgWrapper isImg={Boolean(el.images?.[0])}>
-              <img
-                src={
-                  el.images?.[0] !== undefined && el.images?.[0] !== ""
-                    ? `https://storage.googleapis.com/${el.images[0]}`
-                    : "/images/main/defaultItem.png"
-                }
-              />
-            </S.ImgWrapper>
-            <S.ContentsWrapper>
-              <div>{el.name}</div>
-              <S.ContentsBottomWrapper>
-                <div>{el.price?.toLocaleString()}원</div>
-                <div>{CreateAtTime(el.createdAt)}</div>
-              </S.ContentsBottomWrapper>
-            </S.ContentsWrapper>
-          </S.ItemWrapper>
-        ))}
-      </S.Container>
-    </InfiniteScroll>
+    <S.Container>
+      <S.WriteBtn onClick={onClickMovePage("/usedMarket/write")}>
+        상품등록
+      </S.WriteBtn>
+      <InfiniteScroll loadMore={FetchMore} hasMore={true}>
+        <S.ItemContainer>
+          {data?.fetchUseditems.map((el: IUseditem) => (
+            <S.ItemWrapper
+              key={el._id}
+              onClick={onClickMovePage(`/usedMarket/${el._id}`)}
+            >
+              <S.ImgWrapper isImg={Boolean(el.images?.[0])}>
+                <img
+                  src={
+                    el.images?.[0] !== undefined && el.images?.[0] !== ""
+                      ? `https://storage.googleapis.com/${el.images[0]}`
+                      : "/images/defaultItem.png"
+                  }
+                />
+              </S.ImgWrapper>
+              <S.ContentsWrapper>
+                <div>{el.name}</div>
+                <S.ContentsBottomWrapper>
+                  <div>{el.price?.toLocaleString()}원</div>
+                  <div>{CreateAtTime(el.createdAt)}</div>
+                </S.ContentsBottomWrapper>
+              </S.ContentsWrapper>
+            </S.ItemWrapper>
+          ))}
+        </S.ItemContainer>
+      </InfiniteScroll>
+    </S.Container>
   );
 }

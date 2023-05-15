@@ -32,11 +32,11 @@ export const useMutationCreateUsedItemQuestion = () => {
 
   const createUsedItemQuestion =
     (args: { id: string; reset: () => void }) =>
-    async (createUseditemQuestionInput: { contents: string }) => {
-      if (createUseditemQuestionInput.contents.trim().length === 0) return;
-      await mutation({
+    (data: { contents: string }) => {
+      if (data.contents.trim().length === 0) return;
+      void mutation({
         variables: {
-          createUseditemQuestionInput,
+          createUseditemQuestionInput: { contents: data.contents },
           useditemId: args.id,
         },
         refetchQueries: [
