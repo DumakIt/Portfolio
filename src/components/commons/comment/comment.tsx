@@ -1,5 +1,5 @@
 import { Dispatch, MouseEvent, SetStateAction } from "react";
-import { FieldValues, UseFormReset } from "react-hook-form";
+import { UseFormReset } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { loggedInUserState } from "../../../commons/stores";
 import {
@@ -13,8 +13,8 @@ interface IDetailCommentProps {
   id: string;
   data: IUseditemQuestion;
   picture: Maybe<string> | undefined;
-  reset: UseFormReset<FieldValues>;
   setIsActive: Dispatch<SetStateAction<string>>;
+  reset: UseFormReset<{ UpdateComment: string; contents: string }>;
   onClickIsActive: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
@@ -22,10 +22,11 @@ export default function Comment(props: IDetailCommentProps): JSX.Element {
   const [loggedInUser] = useRecoilState(loggedInUserState);
   const { deleteUsedItemQuestion } = useMutationDeleteUsedItemQuestion();
 
-  const onClickCommentUpdate = (args) => (event) => {
-    props.reset({ UpdateComment: args.contents });
-    props.setIsActive(event.currentTarget.id);
-  };
+  const onClickCommentUpdate =
+    (contents: string) => (event: MouseEvent<HTMLSpanElement>) => {
+      props.reset({ UpdateComment: contents });
+      props.setIsActive(event.currentTarget.id);
+    };
 
   return (
     <>

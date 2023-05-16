@@ -17,13 +17,13 @@ export const FETCH_USER_LOGGED_IN = gql`
   }
 `;
 
-export const useQueryFetchUserLoggedIn = () => {
+export const useQueryFetchUserLoggedIn = (): typeof data => {
   const [, setLoggedInUser] = useRecoilState(loggedInUserState);
-  const { data } =
+  const data =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
-  if (data !== undefined) {
-    setLoggedInUser(data.fetchUserLoggedIn);
+  if (data.data !== undefined) {
+    setLoggedInUser(data.data.fetchUserLoggedIn);
   }
 
-  return { data };
+  return data;
 };

@@ -1,21 +1,31 @@
 import { Modal } from "antd";
 import Script from "next/script";
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
+import { IUser } from "../../../commons/types/generated/types";
 import { useChargePoints } from "../hooks/custom/useChargePoints";
 import { useSetIsToggle } from "../hooks/custom/useSetIsToggle";
+import { v4 as uuidv4 } from "uuid";
 import * as S from "./pointChargeModalStyles";
 
-export default function PointChargeModal(props): JSX.Element {
+interface IPointChargeModal {
+  isOpen: boolean;
+  data: IUser;
+  changeIsOpen: () => void;
+}
+
+export default function PointChargeModal(
+  props: IPointChargeModal
+): JSX.Element {
   const [isSelete, changeIsSelete, setIsSelete] = useSetIsToggle();
   const [amount, setAmount] = useState("");
   const { onClickCharge } = useChargePoints();
 
-  const onClickPoint = (event) => {
+  const onClickPoint = (event: MouseEvent<HTMLDivElement>): void => {
     setAmount(event.currentTarget.id);
     changeIsSelete();
   };
 
-  const onClickCancel = () => {
+  const onClickCancel = (): void => {
     props.changeIsOpen();
     setAmount("");
     setIsSelete(false);
@@ -37,7 +47,7 @@ export default function PointChargeModal(props): JSX.Element {
           <S.ChargePointTitle>충전하실 금액을 선택해주세요!</S.ChargePointTitle>
           <S.SelectPointBtnWrapper onClick={changeIsSelete}>
             <S.SelectedPoint amount={amount}>
-              {amount ? amount : "포인트 선택"}
+              {amount !== "" ? amount : "포인트 선택"}
             </S.SelectedPoint>
             {isSelete ? <S.UpIcon /> : <S.DownIcon />}
           </S.SelectPointBtnWrapper>
@@ -45,7 +55,11 @@ export default function PointChargeModal(props): JSX.Element {
           {isSelete && (
             <S.SelectBoxContainer>
               {[5000, 10000, 50000, 100000].map((el) => (
-                <S.PointList key={el} id={el} onClick={onClickPoint}>
+                <S.PointList
+                  key={uuidv4()}
+                  id={String(el)}
+                  onClick={onClickPoint}
+                >
                   {el.toLocaleString()}
                 </S.PointList>
               ))}
@@ -53,7 +67,7 @@ export default function PointChargeModal(props): JSX.Element {
           )}
           <S.ChargeBtn
             amount={amount}
-            disabled={amount ? false : true}
+            disabled={amount === ""}
             onClick={onClickCharge({ onClickCancel, amount, data: props.data })}
           >
             충전하기

@@ -18,15 +18,20 @@ export const FETCH_USED_ITEM_QUESTIONS = gql`
   }
 `;
 
+interface IUseQueryFetchUsedItemQuestions {
+  data: Pick<IQuery, "fetchUseditemQuestions"> | undefined;
+  FetchMore: () => Promise<void>;
+}
+
 export const useQueryFetchUsedItemQuestions = (
   variables: IQueryFetchUseditemQuestionsArgs
-) => {
-  const { data, fetchMore, refetch } = useQuery<
+): IUseQueryFetchUsedItemQuestions => {
+  const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditemQuestions">,
     IQueryFetchUseditemQuestionsArgs
   >(FETCH_USED_ITEM_QUESTIONS, { variables });
 
-  const FetchMore = async () => {
+  const FetchMore = async (): Promise<void> => {
     if (data === undefined) return;
     await fetchMore({
       variables: {
@@ -44,5 +49,5 @@ export const useQueryFetchUsedItemQuestions = (
     });
   };
 
-  return { data, FetchMore, refetch };
+  return { data, FetchMore };
 };

@@ -22,7 +22,7 @@ export const FETCH_USED_ITEMS = gql`
 
 interface IuseQueryFetchUsedItems {
   data: Pick<IQuery, "fetchUseditems"> | undefined;
-  FetchMore: () => Promise<void>;
+  FetchMore: () => void;
   refetch: (
     variables?: Partial<IQueryFetchUseditemsArgs> | undefined
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchUseditems">>>;
@@ -41,10 +41,10 @@ export const useQueryFetchUsedItems = (): IuseQueryFetchUsedItems => {
     });
   }, [search]);
 
-  const FetchMore = async (): Promise<void> => {
+  const FetchMore = (): void => {
     if (data === undefined) return;
 
-    await fetchMore({
+    void fetchMore({
       variables: {
         page: Math.ceil((data?.fetchUseditems.length ?? 10) / 10) + 1,
       },

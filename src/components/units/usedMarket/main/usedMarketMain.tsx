@@ -4,6 +4,7 @@ import { useQueryFetchUsedItems } from "../../../commons/hooks/query/useQueryFet
 import { CreateAtTime } from "../../../commons/utility/useCreateAtTime";
 import { IUseditem } from "../../../../commons/types/generated/types";
 import { useRouterMovePage } from "../../../commons/hooks/custom/useRouterMovePage";
+import { v4 as uuidv4 } from "uuid";
 
 export default function UsedMarketMain(): JSX.Element {
   const { data, FetchMore } = useQueryFetchUsedItems();
@@ -18,7 +19,7 @@ export default function UsedMarketMain(): JSX.Element {
         <S.ItemContainer>
           {data?.fetchUseditems.map((el: IUseditem) => (
             <S.ItemWrapper
-              key={el._id}
+              key={uuidv4()}
               onClick={onClickMovePage(`/usedMarket/${el._id}`)}
             >
               <S.ImgWrapper isImg={Boolean(el.images?.[0])}>
@@ -26,7 +27,7 @@ export default function UsedMarketMain(): JSX.Element {
                   src={
                     el.images?.[0] !== undefined && el.images?.[0] !== ""
                       ? `https://storage.googleapis.com/${el.images[0]}`
-                      : "/images/defaultItem.png"
+                      : "/images/usedMarket/defaultItem.png"
                   }
                 />
               </S.ImgWrapper>

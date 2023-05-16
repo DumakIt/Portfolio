@@ -1,5 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
+import { Modal } from "antd";
 import {
+  ICreateUseditemInput,
   IMutation,
   IMutationCreateUseditemArgs,
 } from "../../../../commons/types/generated/types";
@@ -18,23 +20,39 @@ const CREATE_USED_ITEM = gql`
   }
 `;
 
-export const useMutationCreateUsedItem = () => {
+interface IUseMutationCreateUsedItem {
+  createUsedItem: (createUseditemInput: ICreateUseditemInput) => Promise<void>;
+}
+
+export const useMutationCreateUsedItem = (): IUseMutationCreateUsedItem => {
   const { routerMovePage } = useRouterMovePage();
   const [mutation] = useMutation<
     Pick<IMutation, "createUseditem">,
     IMutationCreateUseditemArgs
   >(CREATE_USED_ITEM);
 
-  const createUsedItem = async (createUseditemInput) => {
-    const result = await mutation({
-      variables: {
-        createUseditemInput: {
-          ...createUseditemInput,
-          remarks: "",
+  const createUsedItem = async (
+    createUseditemInput: ICreateUseditemInput
+  ): Promise<void> => {
+    try {
+      const result = await mutation({
+        variables: {
+          createUseditemInput: {
+            ...createUseditemInput,
+            remarks: "",
+          },
         },
-      },
-    });
-    routerMovePage(`/usedMarket/${result.data?.createUseditem._id}`);
+      });
+      routerMovePage(`/usedMarket/${result.data?.createUseditem._id ?? ""}`);
+    } catch (error) {
+      if (error instanceof Error)
+        Modal.error({
+          content: "확인후 다시 시도해 주세요",
+          okButtonProps: {
+            style: { backgroundColor: "black", color: "white" },
+          },
+        });
+    }
   };
   return { createUsedItem };
 };

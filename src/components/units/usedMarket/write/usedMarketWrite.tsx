@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as S from "./usedMarketWriteStyles";
-import { IFinalWriteBodyProps } from "./usedMarketWriteTypes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./usedMarketWriteVaildation";
 import { useRouterMovePage } from "../../../commons/hooks/custom/useRouterMovePage";
@@ -10,37 +9,36 @@ import { useEffectSetImage } from "../../../commons/hooks/custom/useEffectSetIma
 import { useEffectSetFormImg } from "../../../commons/hooks/custom/useEffectSetFormImg";
 import { useMutationUpdateUsedItem } from "../../../commons/hooks/mutation/useMutationUpdateUsedItem";
 import KakaoMapWrite from "../../../commons/kakaoMapWrite/kakaoMapWrite";
-import ImgUpload from "../../../commons/imgUpload/imgUpload.container";
+import ImgUpload from "../../../commons/imgUpload/imgUpload";
+import {
+  ICreateUseditemInput,
+  IQuery,
+} from "../../../../commons/types/generated/types";
+import { useEffectSetFormData } from "../../../commons/hooks/custom/useEffectSetFormData";
+import { wrapAsync } from "../../../commons/utility/asyncFunc";
+import { v4 as uuidv4 } from "uuid";
+
+interface IFinalWriteBodyProps {
+  isEdit: boolean;
+  id?: string;
+  data?: Pick<IQuery, "fetchUseditem"> | undefined;
+}
 
 export default function UsedMarketWrite(
   props: IFinalWriteBodyProps
 ): JSX.Element {
-  const [images, setImages] = useState({ 0: "" });
+  const [images, setImages] = useState<Record<number, string>>({ 0: "" });
   const { onClickMovePage } = useRouterMovePage();
   const { createUsedItem } = useMutationCreateUsedItem();
-  const { handleSubmit, register, setValue, reset, formState } = useForm({
-    resolver: yupResolver(schema),
-    mode: "onChange",
-  });
+  const { handleSubmit, register, setValue, formState } =
+    useForm<ICreateUseditemInput>({
+      resolver: yupResolver(schema),
+      mode: "onChange",
+    });
   useEffectSetImage({ setImages, data: props.data });
   useEffectSetFormImg({ setValue, images });
+  useEffectSetFormData({ setValue, data: props.data });
   const { updateUsedItem } = useMutationUpdateUsedItem();
-
-  useEffect(() => {
-    if (props.data?.fetchUseditem !== undefined) {
-      reset();
-      setValue("contents", props.data?.fetchUseditem?.contents ?? "");
-      setValue("useditemAddress", {
-        lat: props.data?.fetchUseditem.useditemAddress?.lat ?? "",
-        lng: props.data?.fetchUseditem.useditemAddress?.lng ?? "",
-      });
-    } else {
-      setValue("useditemAddress", {
-        lat: 37.56682195069747,
-        lng: 126.97865508922976,
-      });
-    }
-  }, [props.data]);
 
   const onChangeQuill = (value: string): void => {
     setValue("contents", value === "<p></br></p>" ? "" : value);
@@ -49,8 +47,10 @@ export default function UsedMarketWrite(
   return (
     <S.Container>
       <form
-        onSubmit={handleSubmit(
-          props.isEdit ? updateUsedItem(props.id) : createUsedItem
+        onSubmit={wrapAsync(
+          handleSubmit(
+            props.isEdit ? updateUsedItem(props.id ?? "") : createUsedItem
+          )
         )}
       >
         <S.ContainerTitle>
@@ -70,7 +70,7 @@ export default function UsedMarketWrite(
         <S.DetailWrapper>
           <S.Detail>상품내용</S.Detail>
           {props.isEdit ? (
-            props.data ? (
+            props.data !== undefined ? (
               <S.CustomReactQuill
                 placeholder="상품을 설명해주세요."
                 defaultValue={props.data?.fetchUseditem?.contents}
@@ -109,10 +109,10 @@ export default function UsedMarketWrite(
           <S.ImgWrapper>
             {Object.values(images).map((_, idx) => (
               <ImgUpload
-                key={idx}
+                key={uuidv4()}
                 idx={idx}
-                setImages={setImages}
                 images={images}
+                setImages={setImages}
               />
             ))}
           </S.ImgWrapper>
@@ -123,7 +123,7 @@ export default function UsedMarketWrite(
             type="button"
             onClick={
               props.isEdit
-                ? onClickMovePage(`/usedMarket/${props.id}/`)
+                ? onClickMovePage(`/usedMarket/${props.id ?? ""}/`)
                 : onClickMovePage("/usedMarket")
             }
           >

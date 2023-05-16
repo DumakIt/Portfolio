@@ -8,7 +8,6 @@ export const useSetIsActive = (): [
   const [isActive, setIsActive] = useState("");
 
   const onClickIsActive = (event: MouseEvent): void => {
-    console.log(event.currentTarget.id);
     setIsActive(event.currentTarget.id);
   };
   return [onClickIsActive, isActive, setIsActive];

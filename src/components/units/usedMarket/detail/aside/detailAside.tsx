@@ -4,17 +4,25 @@ import { useForm } from "react-hook-form";
 import { useQueryFetchUsedItemQuestions } from "../../../../commons/hooks/query/useQueryFetchUsedItemQuestions";
 import { useSetIsActive } from "../../../../commons/hooks/custom/useSetIsActive";
 import InfiniteScroll from "react-infinite-scroller";
-import { IFinalDetailAsideProps } from "./detailAsideTypes";
 import Comment from "../../../../commons/comment/comment";
 import CommentUpdate from "../../../../commons/commentUpdate/commentUpdate";
 import Reply from "../../../../commons/reply/reply";
+import { wrapAsync } from "../../../../commons/utility/asyncFunc";
+import { v4 as uuidv4 } from "uuid";
+import { IUseditem } from "../../../../../commons/types/generated/types";
 
-export default function DetailAside(
-  props: IFinalDetailAsideProps
-): JSX.Element {
+interface IDetailAsideProps {
+  data: IUseditem | undefined;
+  id: string;
+}
+
+export default function DetailAside(props: IDetailAsideProps): JSX.Element {
   const [onClickIsActive, isActive, setIsActive] = useSetIsActive();
   const { createUsedItemQuestion } = useMutationCreateUsedItemQuestion();
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm<{
+    UpdateComment: string;
+    contents: string;
+  }>();
   const { data: commentData, FetchMore } = useQueryFetchUsedItemQuestions({
     useditemId: props.id,
   });
@@ -39,7 +47,9 @@ export default function DetailAside(
       <S.CommentTitle>댓글</S.CommentTitle>
       <S.Line></S.Line>
       <form
-        onSubmit={handleSubmit(createUsedItemQuestion({ id: props.id, reset }))}
+        onSubmit={wrapAsync(
+          handleSubmit(createUsedItemQuestion({ id: props.id, reset }))
+        )}
       >
         <S.CommentTextareaWrapper>
           <textarea {...register("contents")} />
@@ -47,22 +57,25 @@ export default function DetailAside(
         </S.CommentTextareaWrapper>
       </form>
       <S.CommentsContainer>
-        <InfiniteScroll loadMore={FetchMore} hasMore={true}>
+        <InfiniteScroll
+          loadMore={() => {
+            void FetchMore();
+          }}
+          hasMore={true}
+        >
           {commentData?.fetchUseditemQuestions.map((el) => (
-            <div key={el._id}>
+            <div key={uuidv4()}>
               {el._id !== isActive ? (
                 <Comment
-                  key={el._id}
                   data={el}
-                  picture={props.data?.seller?.picture}
                   id={props.id}
-                  setIsActive={setIsActive}
+                  picture={props.data?.seller?.picture}
                   reset={reset}
+                  setIsActive={setIsActive}
                   onClickIsActive={onClickIsActive}
                 />
               ) : (
                 <CommentUpdate
-                  key={el._id}
                   data={el}
                   id={props.id}
                   setIsActive={setIsActive}
@@ -74,8 +87,8 @@ export default function DetailAside(
               <Reply
                 id={el._id}
                 isActive={isActive}
-                setIsActive={setIsActive}
                 reset={reset}
+                setIsActive={setIsActive}
               />
             </div>
           )) ?? <></>}

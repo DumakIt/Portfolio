@@ -1,8 +1,9 @@
 import { gql, useMutation } from "@apollo/client";
+import { Modal } from "antd";
 import {
   IMutation,
   IMutationUpdateUseditemArgs,
-  IUseditem,
+  IUpdateUseditemInput,
 } from "../../../../commons/types/generated/types";
 import { useRouterMovePage } from "../custom/useRouterMovePage";
 import { FETCH_USED_ITEM } from "../query/useQueryFetchUsedItem";
@@ -21,7 +22,13 @@ const UPDATE_USED_ITEM = gql`
   }
 `;
 
-export const useMutationUpdateUsedItem = () => {
+interface IUseMutationUpdateUsedItem {
+  updateUsedItem: (
+    id: string
+  ) => (updateUseditemInput: IUpdateUseditemInput) => Promise<void>;
+}
+
+export const useMutationUpdateUsedItem = (): IUseMutationUpdateUsedItem => {
   const { routerMovePage } = useRouterMovePage();
   const [mutation] = useMutation<
     Pick<IMutation, "updateUseditem">,
@@ -29,26 +36,36 @@ export const useMutationUpdateUsedItem = () => {
   >(UPDATE_USED_ITEM);
 
   const updateUsedItem =
-    (id: string) => async (updateUseditemInput: IUseditem) => {
-      await mutation({
-        variables: {
-          useditemId: id,
-          updateUseditemInput: {
-            ...updateUseditemInput,
-            remarks: "",
-          },
-        },
-        refetchQueries: [
-          {
-            query: FETCH_USED_ITEM,
-            variables: {
-              useditemId: id,
+    (id: string) => async (updateUseditemInput: IUpdateUseditemInput) => {
+      try {
+        await mutation({
+          variables: {
+            useditemId: id,
+            updateUseditemInput: {
+              ...updateUseditemInput,
+              remarks: "",
             },
           },
-        ],
-      });
+          refetchQueries: [
+            {
+              query: FETCH_USED_ITEM,
+              variables: {
+                useditemId: id,
+              },
+            },
+          ],
+        });
 
-      routerMovePage(`/usedMarket/${id}`);
+        routerMovePage(`/usedMarket/${id}`);
+      } catch (error) {
+        if (error instanceof Error)
+          Modal.error({
+            content: "확인후 다시 시도해 주세요",
+            okButtonProps: {
+              style: { backgroundColor: "black", color: "white" },
+            },
+          });
+      }
     };
   return { updateUsedItem };
 };

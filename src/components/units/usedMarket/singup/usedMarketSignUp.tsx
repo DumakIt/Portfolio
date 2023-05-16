@@ -4,11 +4,17 @@ import { useForm } from "react-hook-form";
 import { schema } from "./usedMarketSignUpVaildation";
 import { useRouterMovePage } from "../../../commons/hooks/custom/useRouterMovePage";
 import { useMutationCreateUser } from "../../../commons/hooks/mutation/useMutationCreateUser";
+import { wrapAsync } from "../../../commons/utility/asyncFunc";
 
 export default function UsedMarketSignUp(): JSX.Element {
   const { onClickMovePage } = useRouterMovePage();
   const { createUser } = useMutationCreateUser();
-  const { register, handleSubmit, formState } = useForm({
+  const { register, handleSubmit, formState } = useForm<{
+    email: string;
+    password: string;
+    passwordCheck: string;
+    name: string;
+  }>({
     resolver: yupResolver(schema),
     mode: "onChange",
   });
@@ -19,7 +25,7 @@ export default function UsedMarketSignUp(): JSX.Element {
         회원가입<span>Sign up</span>
       </S.SignUpTitle>
       <S.Line></S.Line>
-      <form onSubmit={handleSubmit(createUser)}>
+      <form onSubmit={wrapAsync(handleSubmit(createUser))}>
         <S.InputsWrapper>
           <S.InputsBox>
             <S.InputsTitle>아이디</S.InputsTitle>

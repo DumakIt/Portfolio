@@ -29,7 +29,9 @@ export const FETCH_USED_ITEM = gql`
   }
 `;
 
-export const useQueryFetchUsedItem = (variables: IQueryFetchUseditemArgs) => {
+export const useQueryFetchUsedItem = (
+  variables: IQueryFetchUseditemArgs
+): typeof data => {
   const data = useQuery<Pick<IQuery, "fetchUseditem">, IQueryFetchUseditemArgs>(
     FETCH_USED_ITEM,
     { variables }

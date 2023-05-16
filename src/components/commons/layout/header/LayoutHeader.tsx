@@ -11,9 +11,9 @@ import * as S from "./layoutHeaderStyles";
 export default function LayoutHeader(): JSX.Element {
   const router = useRouter();
   const isScroll = useEffectHandleScroll();
-  const onChangeSearch = useSearch();
-  const [isToggle, changeIsToggle] = useSetIsToggle();
   const [isOpen, changeIsOpen] = useSetIsToggle();
+  const [isToggle, changeIsToggle] = useSetIsToggle();
+  const onChangeSearch = useSearch();
   const { data } = useQueryFetchUserLoggedIn();
   const { logoutUser } = useMutationLogoutUser();
   const { onClickMovePage } = useRouterMovePage();
@@ -22,7 +22,7 @@ export default function LayoutHeader(): JSX.Element {
     <>
       <S.HeaderWrapper>
         <S.LogoWrapper onClick={onClickMovePage("/usedMarket/")}>
-          <img src="/images/layout/logo.svg" />
+          <img src="/images/usedMarket/logo.svg" />
         </S.LogoWrapper>
         {data?.fetchUserLoggedIn !== undefined ? (
           <S.UserWrapper>
@@ -34,11 +34,17 @@ export default function LayoutHeader(): JSX.Element {
               <span>P</span>
             </S.UserName>
             <S.Charge onClick={changeIsOpen}>충전</S.Charge>
-            <S.LogOut onClick={logoutUser}>로그아웃</S.LogOut>
+            <S.LogOut
+              onClick={() => {
+                void logoutUser();
+              }}
+            >
+              로그아웃
+            </S.LogOut>
             <PointChargeModal
               isOpen={isOpen}
-              changeIsOpen={changeIsOpen}
               data={data?.fetchUserLoggedIn}
+              changeIsOpen={changeIsOpen}
             />
           </S.UserWrapper>
         ) : (
@@ -51,7 +57,7 @@ export default function LayoutHeader(): JSX.Element {
       {router.asPath === "/usedMarket" && (
         <S.SearchWrapper isScroll={isScroll}>
           <S.LogoWrapper>
-            <img src="/images/layout/logo.svg" />
+            <img src="/images/usedMarket/logo.svg" />
           </S.LogoWrapper>
           <S.SearchBox istoggle={String(isToggle)} isScroll={isScroll}>
             <S.SearchBoxInput

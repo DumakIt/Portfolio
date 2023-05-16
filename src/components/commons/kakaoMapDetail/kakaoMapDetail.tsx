@@ -1,6 +1,16 @@
 import { Map, MapMarker, useInjectKakaoMapApi } from "react-kakao-maps-sdk";
+import {
+  IUseditemAddress,
+  Maybe,
+} from "../../../commons/types/generated/types";
 
-export default function KakaoMapDetail(props): JSX.Element {
+interface IKakaoMapDetailProps {
+  data: Maybe<IUseditemAddress>;
+}
+
+export default function KakaoMapDetail(
+  props: IKakaoMapDetailProps
+): JSX.Element {
   const { loading } = useInjectKakaoMapApi({
     appkey: "bd267c3409ad63bff12f4bc9683e42a5",
     libraries: ["services"],
@@ -10,13 +20,19 @@ export default function KakaoMapDetail(props): JSX.Element {
     <>
       {!loading && (
         <Map
-          center={{ lat: props.data?.lat, lng: props.data?.lng }}
+          center={{
+            lat: Number(props.data?.lat),
+            lng: Number(props.data?.lng),
+          }}
           level={3}
           isPanto={true}
           style={{ width: "100%", height: "448px" }}
         >
           <MapMarker
-            position={{ lat: props.data?.lat, lng: props.data?.lng }}
+            position={{
+              lat: Number(props.data?.lat),
+              lng: Number(props.data?.lng),
+            }}
           />
         </Map>
       )}

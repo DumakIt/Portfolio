@@ -21,11 +21,11 @@ export const FETCH_USED_ITEM_QUESTION_ANSWERS = gql`
 
 export const useQueryFetchUsedItemQuestionAnswers = (
   variables: IQueryFetchUseditemQuestionAnswersArgs
-) => {
-  const { data } = useQuery<
+): typeof data => {
+  const data = useQuery<
     Pick<IQuery, "fetchUseditemQuestionAnswers">,
     IQueryFetchUseditemQuestionAnswersArgs
   >(FETCH_USED_ITEM_QUESTION_ANSWERS, { variables });
 
-  return { data };
+  return data;
 };

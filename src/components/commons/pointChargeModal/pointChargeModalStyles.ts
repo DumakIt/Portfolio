@@ -1,6 +1,10 @@
 import { CloseOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 
+interface IProps {
+  amount: string;
+}
+
 export const CloseIcon = styled(CloseOutlined)`
   font-size: 20px;
   color: black;
@@ -29,7 +33,7 @@ export const SelectPointBtnWrapper = styled.div`
 export const SelectedPoint = styled.div`
   font-weight: 400;
   font-size: 16px;
-  color: ${(props) => (props.amount ? "black" : "#828282")};
+  color: ${(props: IProps) => (props.amount !== "" ? "black" : "#828282")};
 `;
 
 export const DownIcon = styled(DownOutlined)`
@@ -45,7 +49,8 @@ export const UpIcon = styled(UpOutlined)`
 export const ChargeBtn = styled.button`
   width: 100%;
   height: 52px;
-  background: ${(props) => (props.amount ? "#000000" : "#bdbdbd")};
+  background: ${(props: IProps) =>
+    props.amount !== "" ? "#000000" : "#bdbdbd"};
   border-radius: 10px;
   border: none;
   color: white;

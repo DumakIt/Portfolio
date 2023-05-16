@@ -4,14 +4,18 @@ import { schema } from "./usedMarketLoginVaildation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouterMovePage } from "../../../commons/hooks/custom/useRouterMovePage";
 import { useMutationLoginUser } from "../../../commons/hooks/mutation/useMutationLoginUser";
+import { wrapAsync } from "../../../commons/utility/asyncFunc";
+import { IMutationLoginUserArgs } from "../../../../commons/types/generated/types";
 
 export default function UsedMarketLogin(): JSX.Element {
   const { onClickMovePage } = useRouterMovePage();
   const { loginUser } = useMutationLoginUser();
-  const { register, handleSubmit, formState } = useForm({
-    resolver: yupResolver(schema),
-    mode: "onChange",
-  });
+  const { register, handleSubmit, formState } = useForm<IMutationLoginUserArgs>(
+    {
+      resolver: yupResolver(schema),
+      mode: "onChange",
+    }
+  );
 
   return (
     <S.Container>
@@ -19,7 +23,7 @@ export default function UsedMarketLogin(): JSX.Element {
         로그인<span>Login</span>
       </S.LoginTitle>
       <S.Line></S.Line>
-      <form onSubmit={handleSubmit(loginUser)}>
+      <form onSubmit={wrapAsync(handleSubmit(loginUser))}>
         <S.EmailWrapper>
           <S.EmailPasswordInput
             type="text"

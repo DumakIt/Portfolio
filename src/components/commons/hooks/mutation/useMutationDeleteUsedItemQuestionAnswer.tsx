@@ -14,40 +14,49 @@ const DELETE_USED_ITEM_QUESTION_ANSWER = gql`
   }
 `;
 
-interface Iargs {
+interface IDeleteUsedItemQuestionAnswerArgs {
   useditemQuestionId: string;
   useditemQuestionAnswerId: string;
 }
 
-export const useMutationDeleteUsedItemQuestionAnswer = () => {
-  const [mutation] = useMutation<
-    Pick<IMutation, "deleteUseditemQuestionAnswer">,
-    IMutationDeleteUseditemQuestionAnswerArgs
-  >(DELETE_USED_ITEM_QUESTION_ANSWER);
+interface IUseMutationDeleteUsedItemQuestionAnswer {
+  deleteUsedItemQuestionAnswer: (
+    args: IDeleteUsedItemQuestionAnswerArgs
+  ) => () => void;
+}
 
-  const deleteUsedItemQuestionAnswer = (args: Iargs) => () => {
-    try {
-      void mutation({
-        variables: {
-          useditemQuestionAnswerId: args.useditemQuestionAnswerId,
-        },
-        refetchQueries: [
-          {
-            query: FETCH_USED_ITEM_QUESTION_ANSWERS,
+export const useMutationDeleteUsedItemQuestionAnswer =
+  (): IUseMutationDeleteUsedItemQuestionAnswer => {
+    const [mutation] = useMutation<
+      Pick<IMutation, "deleteUseditemQuestionAnswer">,
+      IMutationDeleteUseditemQuestionAnswerArgs
+    >(DELETE_USED_ITEM_QUESTION_ANSWER);
+
+    const deleteUsedItemQuestionAnswer =
+      (args: IDeleteUsedItemQuestionAnswerArgs) => async () => {
+        try {
+          await mutation({
             variables: {
-              useditemQuestionId: args.useditemQuestionId,
+              useditemQuestionAnswerId: args.useditemQuestionAnswerId,
             },
-          },
-        ],
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        Modal.error({
-          title: error.message,
-          content: "확인 후 다시 시도해주세요.",
-        });
-      }
-    }
+            refetchQueries: [
+              {
+                query: FETCH_USED_ITEM_QUESTION_ANSWERS,
+                variables: {
+                  useditemQuestionId: args.useditemQuestionId,
+                },
+              },
+            ],
+          });
+        } catch (error) {
+          if (error instanceof Error)
+            Modal.error({
+              content: "확인후 다시 시도해 주세요",
+              okButtonProps: {
+                style: { backgroundColor: "black", color: "white" },
+              },
+            });
+        }
+      };
+    return { deleteUsedItemQuestionAnswer };
   };
-  return { deleteUsedItemQuestionAnswer };
-};

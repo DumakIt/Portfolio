@@ -7,7 +7,9 @@ const FETCH_USED_ITEMS_COUNT_I_PICKED = gql`
   }
 `;
 
-export const useQueryFetchUsedItemsCountIPicked = () => {
-  const { data } = useQuery<Pick<IQuery, "fetchUseditemsCountIPicked">>(FETCH_USED_ITEMS_COUNT_I_PICKED);
-  return { data };
+export const useQueryFetchUsedItemsCountIPicked = (): typeof data => {
+  const data = useQuery<Pick<IQuery, "fetchUseditemsCountIPicked">>(
+    FETCH_USED_ITEMS_COUNT_I_PICKED
+  );
+  return data;
 };

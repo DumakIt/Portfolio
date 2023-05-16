@@ -2,7 +2,7 @@ import { atom, selector } from "recoil";
 import { getNewAccessToken } from "../libraries/getNewAccessToken";
 import { IUser } from "../types/generated/types";
 
-export const accessTokenState = atom({
+export const accessTokenState = atom<string | undefined>({
   key: "accessTokenState",
   default: "",
 });

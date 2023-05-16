@@ -13,8 +13,13 @@ export const useWithAuth = (): void => {
       if (newAccessToken === undefined) {
         Modal.info({
           content: "로그인 후 이용 가능합니다",
+          onOk() {
+            routerMovePage("/usedMarket/login");
+          },
+          okButtonProps: {
+            style: { backgroundColor: "black", color: "white" },
+          },
         });
-        routerMovePage("/usedMarket/login");
       }
     });
   }, []);

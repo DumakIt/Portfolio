@@ -1,4 +1,4 @@
-import { CloseOutlined, EditFilled, HeartFilled } from "@ant-design/icons";
+import { CloseOutlined, EditFilled } from "@ant-design/icons";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`

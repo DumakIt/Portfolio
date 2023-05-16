@@ -1,6 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
 import { IMutation } from "../../../../commons/types/generated/types";
-import { FETCH_USER_LOGGED_IN } from "../query/useQueryFetchUserLoggedIn";
 
 const LOGOUT_USER = gql`
   mutation {
@@ -8,10 +7,14 @@ const LOGOUT_USER = gql`
   }
 `;
 
-export const useMutationLogoutUser = () => {
+interface IUseMutationLogoutUser {
+  logoutUser: () => Promise<void>;
+}
+
+export const useMutationLogoutUser = (): IUseMutationLogoutUser => {
   const [mutation] = useMutation<Pick<IMutation, "logoutUser">>(LOGOUT_USER);
 
-  const logoutUser = async () => {
+  const logoutUser = async (): Promise<void> => {
     await mutation();
     window.location.reload();
   };

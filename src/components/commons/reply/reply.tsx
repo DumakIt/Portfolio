@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
-import { FieldValues, useForm, UseFormReset } from "react-hook-form";
+import { Dispatch, MouseEvent, SetStateAction } from "react";
+import { useForm, UseFormReset } from "react-hook-form";
 import { useRecoilState } from "recoil";
 import { loggedInUserState } from "../../../commons/stores";
 import { ICreateUseditemQuestionAnswerInput } from "../../../commons/types/generated/types";
@@ -7,13 +7,18 @@ import { useMutationCreateUsedItemQuestionAnswer } from "../hooks/mutation/useMu
 import { useMutationDeleteUsedItemQuestionAnswer } from "../hooks/mutation/useMutationDeleteUsedItemQuestionAnswer";
 import { useQueryFetchUsedItemQuestionAnswers } from "../hooks/query/useQueryFetchUsedItemQuestionAnswers";
 import ReplyUpdate from "../replyUpdate/replyUpdate";
+import { wrapAsync } from "../utility/asyncFunc";
+import { v4 as uuidv4 } from "uuid";
 import * as S from "./replyStyles";
 
 interface IReplyProps {
   id: string;
   isActive: string;
-  reset: UseFormReset<FieldValues>;
   setIsActive: Dispatch<SetStateAction<string>>;
+  reset: UseFormReset<{
+    UpdateComment: string;
+    contents: string;
+  }>;
 }
 
 export default function Reply(props: IReplyProps): JSX.Element {
@@ -28,7 +33,7 @@ export default function Reply(props: IReplyProps): JSX.Element {
   const { handleSubmit, reset, register } =
     useForm<ICreateUseditemQuestionAnswerInput>();
 
-  const onClickReplyUpdate = (event) => {
+  const onClickReplyUpdate = (event: MouseEvent<HTMLSpanElement>): void => {
     props.setIsActive(event.currentTarget.id);
   };
 
@@ -36,12 +41,14 @@ export default function Reply(props: IReplyProps): JSX.Element {
     <>
       {props.isActive === props.id + "ReplyWrite" && (
         <S.ReplyWriteWrapper
-          onSubmit={handleSubmit(
-            createUsedItemQuestionAnswer({
-              id: props.id,
-              reset,
-              setIsActive: props.setIsActive,
-            })
+          onSubmit={wrapAsync(
+            handleSubmit(
+              createUsedItemQuestionAnswer({
+                id: props.id,
+                reset,
+                setIsActive: props.setIsActive,
+              })
+            )
           )}
         >
           <S.ReplyEnter />
@@ -52,11 +59,11 @@ export default function Reply(props: IReplyProps): JSX.Element {
         </S.ReplyWriteWrapper>
       )}
       {data?.fetchUseditemQuestionAnswers.map((el) => (
-        <div key={el._id}>
+        <div key={uuidv4()}>
           {props.isActive !== el._id + "ReplyUpdate" ? (
-            <S.ReplyContainer key={el._id}>
+            <S.ReplyContainer>
               <S.ReplyEnter />
-              <S.ReplyDetailContainer key={el._id}>
+              <S.ReplyDetailContainer>
                 <div>
                   <S.ReplyWriterInfoWrapper>
                     <S.ReplyWriterIconBox>

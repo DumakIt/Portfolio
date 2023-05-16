@@ -1,21 +1,30 @@
 import { Dispatch, SetStateAction } from "react";
 import {
-  FieldValues,
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormReset,
 } from "react-hook-form";
 import { IUseditemQuestion } from "../../../commons/types/generated/types";
 import { useMutationUpdateUsedItemQuestion } from "../hooks/mutation/useMutationUpdateUsedItemQuestion";
+import { wrapAsync } from "../utility/asyncFunc";
 import * as S from "./commentUpdateStyles";
 
 interface IDetailCommentUpdateProps {
   id: string;
   data: IUseditemQuestion;
-  register: UseFormRegister<FieldValues>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
-  reset: UseFormReset<FieldValues>;
+  handleSubmit: UseFormHandleSubmit<{
+    UpdateComment: string;
+    contents: string;
+  }>;
   setIsActive: Dispatch<SetStateAction<string>>;
+  register: UseFormRegister<{
+    UpdateComment: string;
+    contents: string;
+  }>;
+  reset: UseFormReset<{
+    UpdateComment: string;
+    contents: string;
+  }>;
 }
 
 export default function CommentUpdate(
@@ -23,19 +32,21 @@ export default function CommentUpdate(
 ): JSX.Element {
   const { updateUsedItemQuestion } = useMutationUpdateUsedItemQuestion();
 
-  const onClickUpdateCanCel = () => {
+  const onClickUpdateCanCel = (): void => {
     props.setIsActive("");
   };
 
   return (
     <form
-      onSubmit={props.handleSubmit(
-        updateUsedItemQuestion({
-          useditemId: props.id,
-          useditemQuestionId: props.data._id,
-          setIsActive: props.setIsActive,
-          reset: props.reset,
-        })
+      onSubmit={wrapAsync(
+        props.handleSubmit(
+          updateUsedItemQuestion({
+            useditemId: props.id,
+            useditemQuestionId: props.data._id,
+            reset: props.reset,
+            setIsActive: props.setIsActive,
+          })
+        )
       )}
     >
       <S.CommentTextareaWrapper>
