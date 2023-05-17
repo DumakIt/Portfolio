@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import LayoutHeader from "./header/layoutHeader";
+import CatGalleyLayout from "./catGalley/catGalleyLayout";
+import UsedMarketLayout from "./usedMarket/usedMarketLayout";
 
 interface ILayoutPros {
   children: JSX.Element;
@@ -7,15 +8,20 @@ interface ILayoutPros {
 
 export default function Layout(props: ILayoutPros): JSX.Element {
   const router = useRouter();
+  console.log(router.asPath);
   return (
     <>
-      {router.asPath !== "/" ? (
+      {router.asPath.split("/")[1] === "usedMarket" && (
         <>
-          <LayoutHeader />
+          <UsedMarketLayout />
           {props.children}
         </>
-      ) : (
-        <>{props.children}</>
+      )}
+      {router.asPath.split("/")[1] === "catGallery" && (
+        <>
+          <CatGalleyLayout />
+          {props.children}
+        </>
       )}
     </>
   );

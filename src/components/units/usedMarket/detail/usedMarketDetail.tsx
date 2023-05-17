@@ -1,9 +1,9 @@
-import { useQueryFetchUsedItem } from "../../../commons/hooks/query/useQueryFetchUsedItem";
-import { useRouterIdCheck } from "../../../commons/hooks/custom/useRouterIdCheck";
 import DetailHeader from "./header/detailHeader";
 import styled from "@emotion/styled";
 import DetailBody from "./body/detailBody";
 import DetailAside from "./aside/detailAside";
+import { useRouterIdCheck } from "../../../commons/hooks/custom/useRouterIdCheck";
+import { useQueryFetchUsedItem } from "../../../commons/hooks/query/useQueryFetchUsedItem";
 
 export const BodyWrapper = styled.div`
   display: flex;

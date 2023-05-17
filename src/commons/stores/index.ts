@@ -24,3 +24,8 @@ export const loggedInUserState = atom<Partial<IUser>>({
   key: "loggedInUserState",
   default: {},
 });
+
+export const catGalleryUserIdState = atom({
+  key: "catGalleryUserIdState",
+  default: "",
+});

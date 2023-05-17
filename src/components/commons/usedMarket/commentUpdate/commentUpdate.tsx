@@ -4,9 +4,10 @@ import {
   UseFormRegister,
   UseFormReset,
 } from "react-hook-form";
-import { IUseditemQuestion } from "../../../commons/types/generated/types";
-import { useMutationUpdateUsedItemQuestion } from "../hooks/mutation/useMutationUpdateUsedItemQuestion";
-import { wrapAsync } from "../utility/asyncFunc";
+import { IUseditemQuestion } from "../../../../commons/types/generated/types";
+
+import { useMutationUpdateUsedItemQuestion } from "../../hooks/mutation/useMutationUpdateUsedItemQuestion";
+import { wrapAsync } from "../../utility/asyncFunc";
 import * as S from "./commentUpdateStyles";
 
 interface IDetailCommentUpdateProps {

@@ -5,6 +5,7 @@ import { IUseditem } from "../../../../../commons/types/generated/types";
 import { useRouterMovePage } from "../../../../commons/hooks/custom/useRouterMovePage";
 import { useMutationCreatePointTransactionOfBuyingAndSelling } from "../../../../commons/hooks/mutation/useMutationCreatePointTransactionOfBuyingAndSelling";
 import { useMutationDeleteUsedItem } from "../../../../commons/hooks/mutation/useMutationDeleteUsedItem";
+
 import * as S from "./detailHeaderStyles";
 
 export interface IDetailHeaderProps {

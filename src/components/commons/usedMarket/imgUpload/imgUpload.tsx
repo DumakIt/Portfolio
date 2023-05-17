@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useRef } from "react";
-import { UseMutationUploadFile } from "../hooks/mutation/useMutationUploadFile";
+import { UseMutationUploadFile } from "../../hooks/mutation/useMutationUploadFile";
 import * as S from "./imgUploadStyles";
 
 interface IImgUploadArgs {

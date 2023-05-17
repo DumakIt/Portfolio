@@ -8,8 +8,6 @@ import { useMutationCreateUsedItem } from "../../../commons/hooks/mutation/useMu
 import { useEffectSetImage } from "../../../commons/hooks/custom/useEffectSetImage";
 import { useEffectSetFormImg } from "../../../commons/hooks/custom/useEffectSetFormImg";
 import { useMutationUpdateUsedItem } from "../../../commons/hooks/mutation/useMutationUpdateUsedItem";
-import KakaoMapWrite from "../../../commons/kakaoMapWrite/kakaoMapWrite";
-import ImgUpload from "../../../commons/imgUpload/imgUpload";
 import {
   ICreateUseditemInput,
   IQuery,
@@ -17,6 +15,8 @@ import {
 import { useEffectSetFormData } from "../../../commons/hooks/custom/useEffectSetFormData";
 import { wrapAsync } from "../../../commons/utility/asyncFunc";
 import { v4 as uuidv4 } from "uuid";
+import KakaoMapWrite from "../../../commons/usedMarket/kakaoMapWrite/kakaoMapWrite";
+import ImgUpload from "../../../commons/usedMarket/imgUpload/imgUpload";
 
 interface IFinalWriteBodyProps {
   isEdit: boolean;
@@ -129,7 +129,7 @@ export default function UsedMarketWrite(
           >
             취소
           </S.BtnCancel>
-          <S.BtnSubmit>등록</S.BtnSubmit>
+          <S.BtnSubmit>{props.isEdit ? "수정" : "등록"}</S.BtnSubmit>
         </S.BtnWrapper>
       </form>
     </S.Container>

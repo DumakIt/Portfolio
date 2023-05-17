@@ -5,10 +5,10 @@ import { useSearch } from "../../hooks/custom/useSearch";
 import { useSetIsToggle } from "../../hooks/custom/useSetIsToggle";
 import { useMutationLogoutUser } from "../../hooks/mutation/useMutationLogoutUser";
 import { useQueryFetchUserLoggedIn } from "../../hooks/query/useQueryFetchUserLoggedIn";
-import PointChargeModal from "../../pointChargeModal/pointChargeModal";
-import * as S from "./layoutHeaderStyles";
+import PointChargeModal from "../../usedMarket/pointChargeModal/pointChargeModal";
+import * as S from "./usedMarketLayoutStyles";
 
-export default function LayoutHeader(): JSX.Element {
+export default function UseMarketLayout(): JSX.Element {
   const router = useRouter();
   const isScroll = useEffectHandleScroll();
   const [isOpen, changeIsOpen] = useSetIsToggle();

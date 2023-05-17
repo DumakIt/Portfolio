@@ -1,9 +1,9 @@
 import { Modal } from "antd";
 import Script from "next/script";
 import { MouseEvent, useState } from "react";
-import { IUser } from "../../../commons/types/generated/types";
-import { useChargePoints } from "../hooks/custom/useChargePoints";
-import { useSetIsToggle } from "../hooks/custom/useSetIsToggle";
+import { IUser } from "../../../../commons/types/generated/types";
+import { useChargePoints } from "../../hooks/custom/useChargePoints";
+import { useSetIsToggle } from "../../hooks/custom/useSetIsToggle";
 import { v4 as uuidv4 } from "uuid";
 import * as S from "./pointChargeModalStyles";
 
