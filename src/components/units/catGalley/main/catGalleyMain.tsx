@@ -4,6 +4,7 @@ import { useGetCatImg } from "../../../commons/hooks/custom/useGetCatImg";
 import * as S from "./catGalleyMainStyles";
 import { useSetIsToggle } from "../../../commons/hooks/custom/useSetIsToggle";
 import SaveCatModal from "../../../commons/catGalley/saveCatModal/saveCatModal";
+import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 
 export default function CatGalleyMain(): JSX.Element {
@@ -13,6 +14,7 @@ export default function CatGalleyMain(): JSX.Element {
     src?: string;
     width?: number;
     height?: number;
+    key?: string;
   }>({});
 
   return (
@@ -23,14 +25,14 @@ export default function CatGalleyMain(): JSX.Element {
           void axiosCatImg();
         }}
         hasMore={true}
-        loader={<S.LoadingImg>Loading ...</S.LoadingImg>}
+        loader={<S.LoadingImg key={uuidv4()}>Loading ...</S.LoadingImg>}
       >
         <PhotoAlbum
           layout="masonry"
           photos={catImgs}
           columns={3}
           onClick={({ photo }) => {
-            setSelectCat(photo);
+            setSelectCat({ ...photo, key: uuidv4() });
             changeIsToggle();
           }}
         />

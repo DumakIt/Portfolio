@@ -1,86 +1,80 @@
 import { Tabs } from "antd";
-import {
-  collection,
-  getDocs,
-  getFirestore,
-  orderBy,
-  query,
-} from "firebase/firestore/lite";
-import { useEffect, useState } from "react";
-import { PhotoAlbum } from "react-photo-album";
+import { useState } from "react";
+import { Photo, PhotoAlbum } from "react-photo-album";
 import { useRecoilState } from "recoil";
-import { firebaseApp } from "../../../../commons/libraries/firebase";
 import { catGalleryUserIdState } from "../../../../commons/stores";
+import UpdateCatModal from "../../../commons/catGalley/updateCatModal/updateCatModal";
+import { useEffectGetCategory } from "../../../commons/hooks/custom/useEffectGetCategory";
+import { useEffectGetCategoryImg } from "../../../commons/hooks/custom/useEffectGetCategoryImg";
+import { useSetIsToggle } from "../../../commons/hooks/custom/useSetIsToggle";
 import * as S from "./saveGalleryStyles";
 
 export default function SaveGallery(): JSX.Element {
   const [catGalleryUserId] = useRecoilState(catGalleryUserIdState);
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categoryList, setCategoryList] = useState<any[]>([]);
   const [selectCategory, setSelectCategory] = useState("");
-  const [catImgs, setCatImgs] = useState<any[]>([]);
+  const [catImgs, setCatImgs] = useState<Photo[]>([]);
+  const [isToggle, changeIsToggle] = useSetIsToggle();
+  const [clickPhoto, setClickPhoto] = useState<any>({});
+  const [isUpdated, setIsUpdated] = useState(false);
 
   // 카테고리 조회
-  useEffect(() => {
-    if (catGalleryUserId !== "") {
-      const fetchCategory = async (): Promise<void> => {
-        const accessDB = collection(
-          getFirestore(firebaseApp),
-          catGalleryUserId
-        );
-        const result = await getDocs(
-          query(accessDB, orderBy("timestamp", "asc"))
-        );
-        const datas = result.docs.map((el) => el.data());
-        setCategories(datas);
-      };
-      void fetchCategory();
-    }
-  }, [catGalleryUserId]);
+  useEffectGetCategory({ catGalleryUserId, setCategoryList });
 
   // 해당 카테고리의 저장한 이미지 조회
-  useEffect(() => {
-    if (catGalleryUserId !== "") {
-      const fetchSaveImg = async (): Promise<void> => {
-        const accessDB = collection(
-          getFirestore(firebaseApp),
-          catGalleryUserId,
-          selectCategory === "" ? categories[0].label : selectCategory,
-          selectCategory === "" ? categories[0].label : selectCategory
-        );
-        const result = await getDocs(
-          query(accessDB, orderBy("timestamp", "asc"))
-        );
-        const datas = result.docs.map((el) => el.data());
-        setCatImgs(datas);
-      };
-      void fetchSaveImg();
-    }
-  }, [selectCategory, categories]);
+  useEffectGetCategoryImg({
+    isUpdated,
+    categoryList,
+    selectCategory,
+    catGalleryUserId,
+    setCatImgs,
+    setIsUpdated,
+  });
 
   return (
     <S.Container>
       <Tabs
+        type="line"
         tabPosition={"left"}
         onChange={(event) => {
           setSelectCategory(event);
         }}
-        items={categories.map((el, idx) => {
+        items={categoryList.map((el) => {
           return {
             label: el.label,
             key: el.label,
             children: (
               <PhotoAlbum
-                layout="columns"
+                layout="masonry"
                 photos={catImgs}
                 columns={3}
-                onClick={(e) => {
-                  console.log(e);
+                onClick={(event) => {
+                  setClickPhoto(event.photo);
+                  changeIsToggle();
                 }}
+                renderPhoto={({ photo, wrapperStyle, renderDefaultPhoto }) => (
+                  <div style={{ position: "relative", ...wrapperStyle }}>
+                    {renderDefaultPhoto({ wrapped: true })}
+                    {photo.title !== "" && (
+                      <S.ImgTitle>{photo.title}</S.ImgTitle>
+                    )}
+                  </div>
+                )}
               />
             ),
           };
         })}
       />
+      {isToggle && (
+        <UpdateCatModal
+          clickPhoto={clickPhoto}
+          categoryList={categoryList}
+          selectCategory={selectCategory}
+          setIsUpdated={setIsUpdated}
+          setClickPhoto={setClickPhoto}
+          changeIsToggle={changeIsToggle}
+        />
+      )}
     </S.Container>
   );
 }

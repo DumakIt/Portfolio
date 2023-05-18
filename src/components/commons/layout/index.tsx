@@ -23,6 +23,8 @@ export default function Layout(props: ILayoutPros): JSX.Element {
           {props.children}
         </>
       )}
+
+      {router.asPath === "/" && <>{props.children}</>}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { Select } from "antd";
+import { Modal, Select } from "antd";
 import { doc, getFirestore, setDoc } from "firebase/firestore/lite";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
@@ -8,9 +8,9 @@ import { useEffectGetCategory } from "../../hooks/custom/useEffectGetCategory";
 import * as S from "./saveCatModalStyles";
 
 interface ICategoryList {
-  label: string;
-  value: string;
-  timestamp: string;
+  label?: string;
+  value?: string;
+  timestamp?: string;
 }
 
 interface ISaveCatModalProps {
@@ -32,38 +32,60 @@ export default function SaveCatModal(props: ISaveCatModalProps): JSX.Element {
   // 저장되어 있는 카테고리 리스트 불러오기
   useEffectGetCategory({ catGalleryUserId, setCategoryList });
 
+  // 파이어스토어에 저장하기
   const onClickModalSave = async (): Promise<void> => {
-    const accessDB = doc(
-      getFirestore(firebaseApp),
-      catGalleryUserId,
-      selectCategory,
-      selectCategory,
-      Date()
-    );
+    try {
+      const accessDB = doc(
+        getFirestore(firebaseApp),
+        catGalleryUserId,
+        selectCategory,
+        selectCategory,
+        Date()
+      );
 
-    await setDoc(accessDB, {
-      ...props.selectCat,
-      timestamp: Date(),
-      title,
-    });
-    props.changeIsToggle();
+      await setDoc(accessDB, {
+        ...props.selectCat,
+        timestamp: Date(),
+        title,
+      });
+      props.changeIsToggle();
+    } catch (error) {
+      if (error instanceof Error)
+        Modal.error({
+          content: "잠시후 다시 시도해 주세요",
+          okButtonProps: {
+            style: { backgroundColor: "#4096ff", color: "white" },
+          },
+        });
+    }
   };
 
+  // 파이어 스토어에 카테고리 추가
   const onClickAddCategory = async (): Promise<void> => {
-    const newCategory = {
-      value: addCategory,
-      label: addCategory,
-      timestamp: Date(),
-    };
+    try {
+      const newCategory = {
+        value: addCategory,
+        label: addCategory,
+        timestamp: Date(),
+      };
 
-    const accessDB = doc(
-      getFirestore(firebaseApp),
-      catGalleryUserId,
-      addCategory
-    );
-    await setDoc(accessDB, newCategory);
-    setAddCategory("");
-    setCategoryList((prev) => [...prev, newCategory]);
+      const accessDB = doc(
+        getFirestore(firebaseApp),
+        catGalleryUserId,
+        addCategory
+      );
+      await setDoc(accessDB, newCategory);
+      setAddCategory("");
+      setCategoryList((prev) => [...prev, newCategory]);
+    } catch (error) {
+      if (error instanceof Error)
+        Modal.error({
+          content: "잠시후 다시 시도해 주세요",
+          okButtonProps: {
+            style: { backgroundColor: "#4096ff", color: "white" },
+          },
+        });
+    }
   };
 
   return (
