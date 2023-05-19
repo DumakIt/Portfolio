@@ -108,8 +108,8 @@ export const BtnWrapper = styled.div`
 export const BtnCancel = styled.button`
   width: 194px;
   height: 78px;
-  background: #ffe004;
-  border: none;
+  background: white;
+  border: 1px solid black;
   font-weight: 700;
   font-size: 20px;
   line-height: 78px;

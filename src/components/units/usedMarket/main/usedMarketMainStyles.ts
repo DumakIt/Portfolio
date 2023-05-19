@@ -6,12 +6,13 @@ interface IImgWrapperProps {
 
 export const Container = styled.div`
   margin: 0 auto;
-  width: 1600px;
+  max-width: 1600px;
 `;
 
 export const WriteBtn = styled.button`
   width: 180px;
   height: 80px;
+  margin-left: 10px;
   border: 1px solid black;
   border-radius: 10px;
   font-size: 24px;
@@ -30,7 +31,7 @@ export const ItemContainer = styled.section`
 `;
 
 export const ItemWrapper = styled.div`
-  width: calc(20% - 16px);
+  width: 300px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 `;
