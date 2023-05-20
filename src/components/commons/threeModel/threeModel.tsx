@@ -1,15 +1,13 @@
-/* eslint-disable react/no-unknown-property */
-
+import * as THREE from "three";
 import { useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import GSAP from "gsap";
 
-export default function ThreeModel(props): JSX.Element {
+export default function ThreeModel(): JSX.Element {
   const [hovered, setHovered] = useState("");
-  const group = useRef();
-  const { nodes, materials, animations } = useGLTF("/threeJS/model.glb");
+  const group = useRef<THREE.Group>(null);
+  const { nodes, materials, animations }: any = useGLTF("/threeJS/model.glb");
   const { actions } = useAnimations(animations, group);
-
   useEffect(() => {
     // 순서대로 mesh들을 화면에 나오는것 처럼 보이는 애니메이션
     if (group !== undefined) {
@@ -26,7 +24,7 @@ export default function ThreeModel(props): JSX.Element {
         return 0;
       });
 
-      meshes.forEach((mesh) => {
+      meshes?.forEach((mesh) => {
         if (mesh.name === "01wall") return;
         if (mesh.name === "00cube") {
           timeLine.to(mesh.scale, {
@@ -57,13 +55,21 @@ export default function ThreeModel(props): JSX.Element {
     actions[hovered]?.setDuration(0.7).play();
   }, [hovered]);
 
+  useEffect(() => {
+    // tv 및 canvas에 마우스 호버시 애니메이션
+    setTimeout(() => {
+      actions.canvasArrow?.play();
+      actions.tvArrow?.play();
+    }, 6400);
+  }, []);
+
   const onHover = (targetMesh: string) => (): void => {
     actions[hovered]?.stop();
     setHovered(targetMesh);
   };
 
   return (
-    <group ref={group} {...props} dispose={null} position={[0, 6, 0]}>
+    <group ref={group} dispose={null} position={[0, 6, 0]}>
       <group name="Scene">
         <mesh
           name="00cube"
@@ -101,7 +107,7 @@ export default function ThreeModel(props): JSX.Element {
             castShadow
             receiveShadow
             geometry={nodes["02shelf_1"].geometry}
-            material={materials.black1}
+            material={materials.orange}
           />
           <mesh
             name="02shelf_2"
@@ -115,7 +121,7 @@ export default function ThreeModel(props): JSX.Element {
             castShadow
             receiveShadow
             geometry={nodes["02shelf_3"].geometry}
-            material={materials.orange}
+            material={materials.black1}
           />
         </group>
         <group
@@ -129,35 +135,35 @@ export default function ThreeModel(props): JSX.Element {
             castShadow
             receiveShadow
             geometry={nodes["03table_1"].geometry}
-            material={materials.white}
+            material={materials.brown}
           />
           <mesh
             name="03table_2"
             castShadow
             receiveShadow
             geometry={nodes["03table_2"].geometry}
-            material={materials.black1}
+            material={materials.white}
           />
           <mesh
             name="03table_3"
             castShadow
             receiveShadow
             geometry={nodes["03table_3"].geometry}
-            material={materials.silver1}
+            material={materials.black1}
           />
           <mesh
             name="03table_4"
             castShadow
             receiveShadow
             geometry={nodes["03table_4"].geometry}
-            material={materials.silver2}
+            material={materials.silver1}
           />
           <mesh
             name="03table_5"
             castShadow
             receiveShadow
             geometry={nodes["03table_5"].geometry}
-            material={materials.brown}
+            material={materials.silver2}
           />
         </group>
         <group
@@ -350,6 +356,27 @@ export default function ThreeModel(props): JSX.Element {
           material={materials.white}
           position={[5.99, 2.01, -9.77]}
           rotation={[Math.PI / 2, 0, 0]}
+          scale={0}
+        />
+
+        <mesh
+          name="15arrow1"
+          castShadow
+          receiveShadow
+          geometry={nodes["15arrow1"].geometry}
+          material={materials.red}
+          position={[11.63, 7.32, 8.82]}
+          rotation={[-0.72, -Math.PI / 2, 0]}
+          scale={0}
+        />
+        <mesh
+          name="16arrow2"
+          castShadow
+          receiveShadow
+          geometry={nodes["16arrow2"].geometry}
+          material={materials.red}
+          position={[-7.34, 3.19, -7.29]}
+          rotation={[0, 0, 0.71]}
           scale={0}
         />
       </group>

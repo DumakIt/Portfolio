@@ -1,7 +1,7 @@
-import { OrbitControls, Sky, Stars } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import ThreeModel from "../../commons/threeModel/threeModel";
 import { Container } from "./threeMainStyles";
+import { OrbitControls, Sky, Stars } from "@react-three/drei";
 
 export default function ThreeMain(): JSX.Element {
   return (
@@ -34,7 +34,6 @@ export default function ThreeMain(): JSX.Element {
           shadow-camera-bottom={-20}
           shadow-bias={-0.0002}
         />
-
         <ThreeModel />
       </Canvas>
     </Container>
