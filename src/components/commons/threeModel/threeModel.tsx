@@ -1,13 +1,22 @@
 import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import GSAP from "gsap";
+import { useThree } from "@react-three/fiber";
+import type { OrbitControls as OrbitControlsType } from "three-stdlib";
 
-export default function ThreeModel(): JSX.Element {
+interface IThreeModelProps {
+  controlRef: RefObject<OrbitControlsType> | any;
+  changeIsToggle: () => void;
+}
+
+export default function ThreeModel(props: IThreeModelProps): JSX.Element {
   const [hovered, setHovered] = useState("");
   const group = useRef<THREE.Group>(null);
   const { nodes, materials, animations }: any = useGLTF("/threeJS/model.glb");
   const { actions } = useAnimations(animations, group);
+  const { camera } = useThree();
+
   useEffect(() => {
     // 순서대로 mesh들을 화면에 나오는것 처럼 보이는 애니메이션
     if (group !== undefined) {
@@ -41,7 +50,7 @@ export default function ThreeModel(): JSX.Element {
               y: 1,
               z: 1,
               ease: "back.out(1.4)",
-              duration: 0.6,
+              duration: 0.5,
             },
             ">-0.2"
           );
@@ -56,16 +65,60 @@ export default function ThreeModel(): JSX.Element {
   }, [hovered]);
 
   useEffect(() => {
-    // tv 및 canvas에 마우스 호버시 애니메이션
+    // tv 및 canvas에 화살표 애니메이션
     setTimeout(() => {
       actions.canvasArrow?.play();
       actions.tvArrow?.play();
-    }, 6400);
+    }, 5000);
   }, []);
 
   const onHover = (targetMesh: string) => (): void => {
     actions[hovered]?.stop();
     setHovered(targetMesh);
+  };
+
+  const onClickTV = () => {
+    // tv 클릭시 카메라 이동 애니메이션
+    const timeLine = GSAP.timeline();
+
+    timeLine.to(camera.position, {
+      x: 1.8335,
+      y: 7.7621,
+      z: 0.574779,
+      duration: 1,
+    });
+    timeLine.to(
+      props.controlRef.current?.target,
+      {
+        x: 11.7576,
+        y: 8.76926,
+        z: 0.574778,
+        duration: 1,
+        onComplete: props.changeIsToggle,
+      },
+      "<"
+    );
+  };
+
+  const onClickCanvas = () => {
+    // canvas 클릭시 카메라 이동 애니메이션
+    const timeLine = GSAP.timeline();
+    timeLine.to(camera.position, {
+      x: -10.6035,
+      y: 6.207432,
+      z: 2.31214,
+      duration: 1,
+    });
+    timeLine.to(
+      props.controlRef.current?.target,
+      {
+        x: -10.6035,
+        y: 4.72083,
+        z: -6.64039,
+        duration: 1,
+      },
+      "<"
+    );
   };
 
   return (
@@ -324,6 +377,7 @@ export default function ThreeModel(): JSX.Element {
           scale={0}
           onPointerOver={onHover("tvHover")}
           onPointerOut={onHover("")}
+          onClick={onClickTV}
         />
         <mesh
           name="12easel"
@@ -346,6 +400,7 @@ export default function ThreeModel(): JSX.Element {
           scale={0}
           onPointerOver={onHover("canvasHover")}
           onPointerOut={onHover("")}
+          onClick={onClickCanvas}
         />
 
         <mesh
