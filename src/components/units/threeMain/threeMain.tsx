@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import ThreeModel from "../../commons/threeModel/threeModel";
-import { Container } from "./threeMainStyles";
+import * as S from "./threeMainStyles";
 import { OrbitControls, Sky, Stars } from "@react-three/drei";
 import { useRef } from "react";
 import type { OrbitControls as OrbitControlsType } from "three-stdlib";
@@ -12,7 +12,7 @@ export default function ThreeMain(): JSX.Element {
   const [isToggle, changeIsToggle] = useSetIsToggle();
 
   return (
-    <Container>
+    <S.Container>
       <Canvas
         shadows
         camera={{
@@ -49,10 +49,50 @@ export default function ThreeMain(): JSX.Element {
         <ThreeModel controlRef={controlRef} changeIsToggle={changeIsToggle} />
       </Canvas>
       {isToggle && (
-        <Modal open={true} footer={false} onCancel={changeIsToggle}>
-          <div>dsadsa</div>
+        <Modal
+          width={1300}
+          open={true}
+          footer={false}
+          onCancel={changeIsToggle}
+        >
+          <S.ModalContainer>
+            <S.PageWrapper>
+              <S.ImageBox>
+                <img src="/images/main/usedMarketMain.png" />
+              </S.ImageBox>
+              <h1>중고마켓</h1>
+              <S.TextDiv>
+                GraphQL과 포트원(아임포트)를 이용하여 물건을 사고, 팔 수 있는
+                중고 물품 거래 웹사이트입니다.
+              </S.TextDiv>
+              <h2>주요기능</h2>
+              <S.ListUl>
+                <li>포인트 충전</li>
+                <li>물건 구매 / 판매</li>
+                <li>댓글 및 대댓글</li>
+              </S.ListUl>
+              <S.MovePageBtn>바로가기</S.MovePageBtn>
+            </S.PageWrapper>
+            <S.PageWrapper>
+              <S.ImageBox>
+                <img src="/images/main/usedMarketMain.png" />
+              </S.ImageBox>
+              <h1>고양이 갤러리</h1>
+              <S.TextDiv>
+                Axios와 Cloud Firestore를 사용하여 간단한 CRUD를 구현하여 고양이
+                사진을 저장하는 웹사이트입니다.
+              </S.TextDiv>
+              <h2>주요기능</h2>
+              <S.ListUl>
+                <li>카테고리 생성</li>
+                <li>사진 저장, 삭제 및 저장한 사진 불러오기</li>
+                <li>사진 제목 수정</li>
+              </S.ListUl>
+              <S.MovePageBtn>바로가기</S.MovePageBtn>
+            </S.PageWrapper>
+          </S.ModalContainer>
         </Modal>
       )}
-    </Container>
+    </S.Container>
   );
 }
