@@ -22,7 +22,7 @@ export default function DetailHeader(props: IDetailHeaderProps): JSX.Element {
 
   return (
     <S.Container>
-      <S.ImgWrapper>
+      <S.ImgWrapper isImg={Boolean(props.data?.images?.[0])}>
         <img
           src={
             props.data?.images?.[0] !== ""
@@ -54,25 +54,19 @@ export default function DetailHeader(props: IDetailHeaderProps): JSX.Element {
           {props.data?.price?.toLocaleString()}
           <span>원</span>
         </S.ItemPrice>
-        <S.Line></S.Line>
-        <S.BuyBtn
-          onClick={() => {
-            if (loggedInUser._id !== undefined) {
+
+        <S.BuyBtnBox>
+          <button
+            onClick={() => {
               void createPointTransactionOfBuyingAndSelling({
                 useritemId: props.id,
+                loggedInUser: loggedInUser._id,
               })();
-            } else {
-              Modal.info({
-                content: "로그인 후 이용 가능합니다",
-                okButtonProps: {
-                  style: { backgroundColor: "black", color: "white" },
-                },
-              });
-            }
-          }}
-        >
-          구매하기
-        </S.BuyBtn>
+            }}
+          >
+            구매하기
+          </button>
+        </S.BuyBtnBox>
       </S.ItemInfoWrapper>
     </S.Container>
   );

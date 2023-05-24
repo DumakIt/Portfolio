@@ -15,9 +15,14 @@ const CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING = gql`
   }
 `;
 
+interface ICreatePointTransactionOfBuyingAndSellingArgs {
+  useritemId: string;
+  loggedInUser: string | undefined;
+}
+
 interface IuseMutationCreatePointTransactionOfBuyingAndSelling {
   createPointTransactionOfBuyingAndSelling: (
-    variables: IMutationCreatePointTransactionOfBuyingAndSellingArgs
+    args: ICreatePointTransactionOfBuyingAndSellingArgs
   ) => () => Promise<void>;
 }
 
@@ -30,21 +35,30 @@ export const useMutationCreatePointTransactionOfBuyingAndSelling =
     >(CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING);
 
     const createPointTransactionOfBuyingAndSelling =
-      (variables: IMutationCreatePointTransactionOfBuyingAndSellingArgs) =>
-      async () => {
+      (args: ICreatePointTransactionOfBuyingAndSellingArgs) => async () => {
         try {
-          await mutation({
-            variables,
-            refetchQueries: [
-              {
-                query: FETCH_USER_LOGGED_IN,
+          if (args.loggedInUser !== undefined) {
+            await mutation({
+              variables: { useritemId: args.useritemId },
+              refetchQueries: [
+                {
+                  query: FETCH_USER_LOGGED_IN,
+                },
+              ],
+            });
+            routerMovePage("/usedMarket");
+          } else {
+            Modal.info({
+              content: "로그인 후 이용 가능합니다",
+              okButtonProps: {
+                style: { backgroundColor: "black", color: "white" },
               },
-            ],
-          });
-          routerMovePage("/usedMarket");
+            });
+          }
         } catch (error) {
           if (error instanceof Error)
             Modal.error({
+              title: error.message,
               content: "확인후 다시 시도해 주세요",
               okButtonProps: {
                 style: { backgroundColor: "black", color: "white" },

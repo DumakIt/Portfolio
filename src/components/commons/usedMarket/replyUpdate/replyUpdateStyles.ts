@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 export const ReplyWriteWrapper = styled.form`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 `;
 
 export const ReplyEnter = styled(EnterOutlined)`
@@ -20,6 +19,7 @@ export const CommentTextareaWrapper = styled.div`
   width: 340px;
   height: 200px;
   padding: 10px;
+  margin-left: 10px;
   & > textarea {
     background: #e9e9e9;
     resize: none;
@@ -32,6 +32,9 @@ export const CommentTextareaWrapper = styled.div`
     :focus {
       outline: none;
     }
+  }
+  @media (max-width: 1023px) {
+    width: 100%;
   }
 `;
 

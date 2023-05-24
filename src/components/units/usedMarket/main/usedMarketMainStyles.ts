@@ -7,6 +7,7 @@ interface IImgWrapperProps {
 export const Container = styled.div`
   margin: 0 auto;
   max-width: 1600px;
+  min-width: 650px;
 `;
 
 export const WriteBtn = styled.button`

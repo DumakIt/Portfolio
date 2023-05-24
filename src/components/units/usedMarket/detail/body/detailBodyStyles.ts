@@ -2,7 +2,13 @@ import { EnvironmentOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  width: 100%;
+  width: calc(100% - 445px);
+  padding: 10px;
+
+  @media (max-width: 1023px) {
+    width: 100%;
+    min-width: 650px;
+  }
 `;
 
 export const ItemInfoTitle = styled.div`

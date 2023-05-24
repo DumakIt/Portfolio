@@ -19,33 +19,37 @@ export default function UsedMarketLogin(): JSX.Element {
 
   return (
     <S.Container>
-      <S.LoginTitle>
-        로그인<span>Login</span>
-      </S.LoginTitle>
-      <S.Line></S.Line>
-      <form onSubmit={wrapAsync(handleSubmit(loginUser))}>
-        <S.EmailWrapper>
-          <S.EmailPasswordInput
-            type="text"
-            placeholder="아이디"
-            {...register("email")}
-          />
-          <S.inValidInput>{formState.errors.email?.message}</S.inValidInput>
-        </S.EmailWrapper>
-        <S.PasswordWrapper>
-          <S.EmailPasswordInput
-            type="password"
-            placeholder="비밀번호"
-            {...register("password")}
-          />
-          <S.inValidInput>{formState.errors.password?.message}</S.inValidInput>
-        </S.PasswordWrapper>
-        <S.LoginBtn>로그인</S.LoginBtn>
-      </form>
-      <S.RegWrapper>
-        아직 계정이 없으신가요?{" "}
-        <span onClick={onClickMovePage("/usedMarket/signUp")}>회원가입</span>
-      </S.RegWrapper>
+      <div>
+        <S.LoginTitle>
+          로그인<span>Login</span>
+        </S.LoginTitle>
+        <S.Line></S.Line>
+        <form onSubmit={wrapAsync(handleSubmit(loginUser))}>
+          <S.EmailWrapper>
+            <S.EmailPasswordInput
+              type="text"
+              placeholder="아이디"
+              {...register("email")}
+            />
+            <S.inValidInput>{formState.errors.email?.message}</S.inValidInput>
+          </S.EmailWrapper>
+          <S.PasswordWrapper>
+            <S.EmailPasswordInput
+              type="password"
+              placeholder="비밀번호"
+              {...register("password")}
+            />
+            <S.inValidInput>
+              {formState.errors.password?.message}
+            </S.inValidInput>
+          </S.PasswordWrapper>
+          <S.LoginBtn>로그인</S.LoginBtn>
+        </form>
+        <S.RegWrapper>
+          아직 계정이 없으신가요?{" "}
+          <span onClick={onClickMovePage("/usedMarket/signUp")}>회원가입</span>
+        </S.RegWrapper>
+      </div>
     </S.Container>
   );
 }

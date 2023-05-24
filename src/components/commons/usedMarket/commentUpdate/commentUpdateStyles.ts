@@ -20,6 +20,11 @@ export const CommentTextareaWrapper = styled.div`
       outline: none;
     }
   }
+
+  @media (max-width: 1023px) {
+    width: 100%;
+    min-width: 650px;
+  }
 `;
 
 export const CommentUpdateBtnWrapper = styled.div`

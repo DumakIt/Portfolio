@@ -9,7 +9,6 @@ import styled from "@emotion/styled";
 export const ReplyWriteWrapper = styled.form`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 `;
 
 export const ReplyEnter = styled(EnterOutlined)`
@@ -24,6 +23,7 @@ export const ReplyWriteTextareaWrapper = styled.div`
   align-items: flex-end;
   width: 340px;
   height: 200px;
+  margin-left: 10px;
   padding: 10px;
   & > textarea {
     background: #e9e9e9;
@@ -37,6 +37,10 @@ export const ReplyWriteTextareaWrapper = styled.div`
     :focus {
       outline: none;
     }
+  }
+
+  @media (max-width: 1023px) {
+    width: 100%;
   }
 `;
 
@@ -55,11 +59,11 @@ export const ReplyWriteSubmit = styled.button`
 export const ReplyContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 `;
 
 export const ReplyDetailContainer = styled.div`
-  width: 340px;
+  width: 100%;
+  margin-left: 20px;
   & > div {
     height: 50px;
     display: flex;

@@ -40,7 +40,6 @@ export const useMutationLoginUser = (): IUseMutationLoginUser => {
           title: "오류가 발생했습니다",
           content: "잠시후 다시 시도해 주세요.",
         });
-
       setAccessToken(accessToken);
       routerMovePage("/usedMarket");
     } catch (error) {

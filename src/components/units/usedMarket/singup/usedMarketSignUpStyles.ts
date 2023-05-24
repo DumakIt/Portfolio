@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  width: 600px;
-  padding: 72px 0;
-  margin: 0 auto;
-  background: #ffffff;
+  min-width: 650px;
+  & > div {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 72px 0;
+  }
 `;
 
 export const SignUpTitle = styled.div`

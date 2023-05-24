@@ -8,7 +8,9 @@ const ReactQuill = dynamic(async () => await import("react-quill"), {
 
 export const Container = styled.div`
   max-width: 1200px;
+  min-width: 650px;
   margin: 70px auto 0;
+  padding: 0 10px;
 `;
 
 export const ContainerTitle = styled.div`

@@ -7,14 +7,22 @@ interface IProps {
   istoggle?: string;
 }
 
-export const HeaderWrapper = styled.header`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+export const HeaderContainer = styled.header`
   height: 70px;
-  padding: 0 30px 0 80px;
+  min-width: 650px;
   background-color: black;
+
+  & > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1600px;
+    min-width: 650px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
 `;
 
 export const LogoWrapper = styled.div`
@@ -78,20 +86,27 @@ export const StyledLink = styled(Link)`
   color: white;
 `;
 
-export const SearchWrapper = styled.div`
+export const ScrollHeaderContainer = styled.div`
   position: sticky;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   top: 0;
   height: 70px;
+  min-width: 650px;
   margin-top: 20px;
-  padding: 0 30px 0 80px;
   background-color: ${(props: IProps) =>
     props.isScroll === true ? "black" : "white"};
 
   & > div:first-of-type {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1600px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  & > div > div:first-of-type {
     visibility: ${(props: IProps) =>
       props.isScroll === true ? "visible" : "hidden"};
   }

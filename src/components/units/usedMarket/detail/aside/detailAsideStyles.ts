@@ -3,6 +3,12 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
   width: 385px;
+  padding: 10px;
+
+  @media (max-width: 1023px) {
+    width: 100%;
+    min-width: 650px;
+  }
 `;
 
 export const SellerInfoTitle = styled.div`
@@ -11,14 +17,14 @@ export const SellerInfoTitle = styled.div`
 `;
 
 export const SellerInfoWrapper = styled.div`
-  margin-top: 30px;
-  border-top: 3px solid #555555;
-  border-bottom: 1px solid #555555;
-  height: 140px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding-left: 19px;
+  height: 140px;
+  margin-top: 30px;
+  padding-left: 18px;
+  border-top: 3px solid #555555;
+  border-bottom: 1px solid #555555;
 `;
 
 export const SellerIconBox = styled.div`
@@ -46,7 +52,7 @@ export const SellerDefaultIcon = styled(UserOutlined)`
 export const SellerName = styled.div`
   font-weight: 400;
   font-size: 32px;
-  margin-left: 33px;
+  margin-left: 32px;
 `;
 
 export const CommentTitle = styled.div`
@@ -65,18 +71,17 @@ export const CommentTextareaWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: 379px;
+  width: 100%;
   height: 200px;
-  padding: 3px;
   & > textarea {
     background: #e9e9e9;
     resize: none;
     border: none;
     width: 100%;
-    height: 147px;
+    height: 148px;
+    padding: 10px;
     font-weight: 400;
     font-size: 18px;
-    padding: 10px;
     :focus {
       outline: none;
     }
@@ -84,7 +89,7 @@ export const CommentTextareaWrapper = styled.div`
 `;
 
 export const CommentWriteBtn = styled.button`
-  margin-top: 11px;
+  margin-top: 10px;
   width: 116px;
   height: 42px;
   border: none;
