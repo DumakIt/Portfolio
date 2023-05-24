@@ -29,6 +29,7 @@ export const ImgWrapper = styled.div`
 `;
 
 export const ItemInfoWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
