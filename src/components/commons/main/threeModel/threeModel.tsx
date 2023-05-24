@@ -215,7 +215,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
           </group>
           <group
             name="04chair"
-            position={[6.77, -6.64, 6.71]}
+            position={[6.77, -6.09, 6.75]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
           >
@@ -236,7 +236,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
           </group>
           <group
             name="05chair"
-            position={[1.73, -6.64, 6.71]}
+            position={[1.73, -6.09, 6.75]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
           >
@@ -257,7 +257,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
           </group>
           <group
             name="06chair"
-            position={[-3.3, -6.64, 6.71]}
+            position={[-3.3, -6.09, 6.75]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
           >
@@ -278,7 +278,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
           </group>
           <group
             name="07chair"
-            position={[-10.23, -6.64, 0.14]}
+            position={[-10.27, -6.09, 0.14]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
           >
@@ -299,7 +299,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
           </group>
           <group
             name="08chair"
-            position={[-3.37, -6.64, -6.47]}
+            position={[-3.37, -6.09, -6.51]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
           >
@@ -320,7 +320,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
           </group>
           <group
             name="09chair"
-            position={[1.67, -6.64, -6.47]}
+            position={[1.67, -6.09, -6.51]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
           >
@@ -341,7 +341,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
           </group>
           <group
             name="10chair"
-            position={[6.71, -6.64, -6.47]}
+            position={[6.71, -6.09, -6.51]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
           >
@@ -365,7 +365,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
             castShadow
             receiveShadow
             geometry={nodes["11tv"].geometry}
-            material={materials.black1}
+            material={materials.tvMaterial}
             position={[12.16, 2.81, 0.57]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
@@ -379,7 +379,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
             receiveShadow
             geometry={nodes["12easel"].geometry}
             material={materials.black1}
-            position={[-10.6, -3.9, -7.04]}
+            position={[-10.6, -3.61, -7.11]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
           />
@@ -388,7 +388,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
             castShadow
             receiveShadow
             geometry={nodes["13canvas"].geometry}
-            material={materials.white}
+            material={materials.canvasMaterial}
             position={[-10.6, -1.3, -6.73]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
@@ -402,7 +402,7 @@ export default function ThreeModel(props: IThreeModelProps): JSX.Element {
             castShadow
             receiveShadow
             geometry={nodes["14board"].geometry}
-            material={materials.white}
+            material={materials.boardMaterial}
             position={[5.99, 2.01, -9.77]}
             rotation={[Math.PI / 2, 0, 0]}
             scale={0}
