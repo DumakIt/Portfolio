@@ -54,6 +54,9 @@ export const ContentsWrapper = styled.div`
 
   & > div:first-of-type {
     font-size: 22px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 `;
 
