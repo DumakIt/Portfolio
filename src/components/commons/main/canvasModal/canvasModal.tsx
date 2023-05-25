@@ -25,7 +25,7 @@ export default function CanvasModal(props: ICanvasModalProps): JSX.Element {
   return (
     <Modal width={750} open={true} footer={false} onCancel={onClickCancel}>
       <S.ModalContainer>
-        <img src="/images/main/eatsMeMain.png" />
+        <img src="/images/main/eatsMeMain.webp" />
         <h1>잇츠미 :: TeamProject</h1>
         <S.TextDiv>
           팀프로젝트로 진행한 나만의 맛집코스를 작성 및 공유하는 웹사이트입니다.

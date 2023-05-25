@@ -27,7 +27,7 @@ export default function TvModal(props: ITvModalProps): JSX.Element {
     <Modal width={1300} open={true} footer={false} onCancel={onClickCancel}>
       <S.ModalContainer>
         <S.PageWrapper>
-          <img src="/images/main/usedMarketMain.png" />
+          <img src="/images/main/usedMarketMain.webp" />
           <h1>중고마켓</h1>
           <S.TextDiv>
             GraphQL과 포트원(아임포트)를 이용하여 물건을 사고, 팔 수 있는 중고
@@ -44,7 +44,7 @@ export default function TvModal(props: ITvModalProps): JSX.Element {
           </S.MovePageLink>
         </S.PageWrapper>
         <S.PageWrapper>
-          <img src="/images/main/catGalleyMain.png" />
+          <img src="/images/main/catGalleyMain.webp" />
           <h1>고양이 갤러리</h1>
           <S.TextDiv>
             Axios와 Cloud Firestore를 사용하여 간단한 CRUD를 구현하여 고양이

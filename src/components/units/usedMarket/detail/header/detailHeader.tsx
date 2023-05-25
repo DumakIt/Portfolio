@@ -29,7 +29,7 @@ export default function DetailHeader(props: IDetailHeaderProps): JSX.Element {
               ? `https://storage.googleapis.com/${
                   props.data?.images?.[0] ?? ""
                 }`
-              : "/images/usedMarket/defaultItem.png"
+              : "/images/usedMarket/defaultItem.webp"
           }
         />
       </S.ImgWrapper>

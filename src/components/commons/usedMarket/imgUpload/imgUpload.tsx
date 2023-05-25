@@ -24,7 +24,7 @@ export default function ImgUpload(args: IImgUploadArgs): JSX.Element {
           onClick={onClickImg}
         />
       ) : (
-        <S.Img src="/images/usedMarket/addImg.png" onClick={onClickImg} />
+        <S.Img src="/images/usedMarket/addImg.webp" onClick={onClickImg} />
       )}
 
       <S.DisabledInput

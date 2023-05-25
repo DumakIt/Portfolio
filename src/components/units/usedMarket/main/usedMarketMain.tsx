@@ -27,7 +27,7 @@ export default function UsedMarketMain(): JSX.Element {
                   src={
                     el.images?.[0] !== undefined && el.images?.[0] !== ""
                       ? `https://storage.googleapis.com/${el.images[0]}`
-                      : "/images/usedMarket/defaultItem.png"
+                      : "/images/usedMarket/defaultItem.webp"
                   }
                 />
               </S.ImgWrapper>
