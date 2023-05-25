@@ -6,8 +6,10 @@ import { useRouterMovePage } from "../../hooks/custom/useRouterMovePage";
 import * as S from "./catGalleyLayoutStyles";
 import { doc, getFirestore, setDoc } from "firebase/firestore/lite";
 import { firebaseApp } from "../../../../commons/libraries/firebase";
+import { useRouter } from "next/router";
 
 export default function CatGalleyLayout(): JSX.Element {
+  const router = useRouter();
   const { onClickMovePage } = useRouterMovePage();
   const [, setCatGalleryUserId] = useRecoilState(catGalleryUserIdState);
 
@@ -39,9 +41,16 @@ export default function CatGalleyLayout(): JSX.Element {
 
   return (
     <S.Container>
-      <S.LogoWrapper onClick={onClickMovePage("/catGallery")}>
-        <img src="/images/catGallery/logo.svg" />
-      </S.LogoWrapper>
+      <div>
+        <S.LogoWrapper onClick={onClickMovePage("/catGallery")}>
+          <img src="/images/catGallery/logo.svg" />
+        </S.LogoWrapper>
+        {router.asPath === "/catGallery" && (
+          <S.SavedImgBtn href={"/catGallery/saveGallery"}>
+            저장한 이미지
+          </S.SavedImgBtn>
+        )}
+      </div>
     </S.Container>
   );
 }

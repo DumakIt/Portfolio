@@ -30,16 +30,16 @@ export default function CatGalleyMain(): JSX.Element {
         <PhotoAlbum
           layout="masonry"
           photos={catImgs}
-          columns={3}
+          columns={(containerWidth) => {
+            if (containerWidth < 768) return 2;
+            return 3;
+          }}
           onClick={({ photo }) => {
             setSelectCat({ ...photo, key: uuidv4() });
             changeIsToggle();
           }}
         />
       </InfiniteScroll>
-      <S.SavedImgBtn href={"/catGallery/saveGallery"}>
-        저장한 이미지
-      </S.SavedImgBtn>
 
       {isToggle && (
         <SaveCatModal changeIsToggle={changeIsToggle} selectCat={selectCat} />

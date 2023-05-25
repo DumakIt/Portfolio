@@ -89,12 +89,7 @@ export default function UpdateCatModal(
   };
 
   return (
-    <Modal
-      width={400}
-      open={true}
-      footer={false}
-      onCancel={props.changeIsToggle}
-    >
+    <S.CustomModal open={true} footer={false} onCancel={props.changeIsToggle}>
       <h1>제목 수정</h1>
       <S.TitleInput
         type="text"
@@ -118,6 +113,6 @@ export default function UpdateCatModal(
           수정하기
         </S.UpdateBtn>
       </S.BtnWrapper>
-    </Modal>
+    </S.CustomModal>
   );
 }

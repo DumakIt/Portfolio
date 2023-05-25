@@ -47,7 +47,10 @@ export default function SaveGallery(): JSX.Element {
               <PhotoAlbum
                 layout="masonry"
                 photos={catImgs}
-                columns={3}
+                columns={(containerWidth) => {
+                  if (containerWidth < 768) return 2;
+                  return 3;
+                }}
                 onClick={(event) => {
                   setClickPhoto(event.photo);
                   changeIsToggle();

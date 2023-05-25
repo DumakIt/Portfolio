@@ -89,12 +89,7 @@ export default function SaveCatModal(props: ISaveCatModalProps): JSX.Element {
   };
 
   return (
-    <S.CustomModal
-      open={true}
-      width={750}
-      footer={false}
-      onCancel={props.changeIsToggle}
-    >
+    <S.CustomModal open={true} footer={false} onCancel={props.changeIsToggle}>
       <S.SaveCatContainer>
         <S.SaveCatImg src={props.selectCat.src} />
         <S.ImgInfoContainer>
@@ -110,10 +105,13 @@ export default function SaveCatModal(props: ISaveCatModalProps): JSX.Element {
             <div>필수는 아니에요</div>
           </S.TitleWrapper>
 
-          <Select
+          <S.CustomSelect
+            size={"large"}
             defaultValue={"저장한 이미지"}
             onChange={(value) => {
-              setSelectCategory(value);
+              if (typeof value === "string") {
+                setSelectCategory(value);
+              }
             }}
             allowClear={true}
             placement={"topRight"}

@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
-  width: 1200px;
+  max-width: 1200px;
+  min-width: 750px;
   margin: 70px auto 0;
+  padding-right: 20px;
 
   & img:hover {
     outline: 5px solid #4096ff;
