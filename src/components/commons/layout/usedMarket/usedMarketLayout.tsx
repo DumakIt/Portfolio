@@ -17,7 +17,7 @@ export default function UseMarketLayout(): JSX.Element {
   const { data } = useQueryFetchUserLoggedIn();
   const { logoutUser } = useMutationLogoutUser();
   const { onClickMovePage } = useRouterMovePage();
-
+  console.log(router);
   return (
     <>
       <S.HeaderContainer>
@@ -56,7 +56,7 @@ export default function UseMarketLayout(): JSX.Element {
           )}
         </div>
       </S.HeaderContainer>
-      {router.asPath === "/usedMarket" && (
+      {router.asPath === "/usedMarket/" && (
         <S.ScrollHeaderContainer isScroll={isScroll}>
           <div>
             <S.LogoWrapper>
