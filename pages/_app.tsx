@@ -4,13 +4,13 @@ import ApolloSetting from "../src/commons/apollo";
 import Layout from "../src/components/commons/layout";
 import "../styles/globals.css";
 
-export default function App({ Component }: AppProps): JSX.Element {
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <RecoilRoot>
       <ApolloSetting>
         <>
           <Layout>
-            <Component />
+            <Component {...pageProps} />
           </Layout>
         </>
       </ApolloSetting>
