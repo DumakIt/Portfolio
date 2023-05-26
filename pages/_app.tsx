@@ -1,4 +1,4 @@
-import { AppProps } from "next/app";
+import type { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
 import ApolloSetting from "../src/commons/apollo";
 import Layout from "../src/components/commons/layout";

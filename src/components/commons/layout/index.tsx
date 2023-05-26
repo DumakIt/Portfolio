@@ -8,7 +8,6 @@ interface ILayoutPros {
 
 export default function Layout(props: ILayoutPros): JSX.Element {
   const router = useRouter();
-  console.log(router.asPath);
   return (
     <>
       {router.asPath.split("/")[1] === "usedMarket" && (
