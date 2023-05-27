@@ -122,6 +122,7 @@ export const SearchBox = styled.div<IProps>`
   padding: 0 15px;
   border: 2px solid black;
   border-radius: 60px;
+  cursor: pointer;
   background-color: ${(props) =>
     props.istoggle === "true" ? "white" : "black"};
 

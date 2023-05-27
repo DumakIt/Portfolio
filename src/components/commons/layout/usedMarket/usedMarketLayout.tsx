@@ -21,7 +21,7 @@ export default function UseMarketLayout(): JSX.Element {
     <>
       <S.HeaderContainer>
         <div>
-          <S.LogoWrapper onClick={onClickMovePage("/usedMarket/")}>
+          <S.LogoWrapper onClick={onClickMovePage("/usedMarket")}>
             <img src="/images/usedMarket/logo.svg" />
           </S.LogoWrapper>
           {data?.fetchUserLoggedIn !== undefined ? (
