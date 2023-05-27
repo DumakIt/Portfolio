@@ -1,5 +1,5 @@
-import CatGalleyMain from "../../src/components/units/catGalley/main/catGalleyMain";
+import CatGalleryMain from "../../src/components/units/catGallery/main/catGalleryMain";
 
 export default function catGalleryPage(): JSX.Element {
-  return <CatGalleyMain />;
+  return <CatGalleryMain />;
 }

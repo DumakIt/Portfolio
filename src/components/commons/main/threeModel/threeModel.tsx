@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import * as THREE from "three";
 import { RefObject, useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations, Html } from "@react-three/drei";
@@ -8,7 +9,7 @@ import TvModal from "../tvModal/tvModal";
 import { useSetIsToggle } from "../../hooks/custom/useSetIsToggle";
 import { useThree } from "@react-three/fiber";
 import CanvasModal from "../canvasModal/canvasModal";
-import { responsiveCamera } from "../../utility/useCameraPosition";
+import { responsiveCamera } from "../../utility/cameraPosition";
 
 interface IThreeModelProps {
   controlRef: RefObject<OrbitControlsType> | any;

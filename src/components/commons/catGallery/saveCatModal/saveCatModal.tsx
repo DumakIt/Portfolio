@@ -1,4 +1,4 @@
-import { Modal, Select } from "antd";
+import { Modal } from "antd";
 import { doc, getFirestore, setDoc } from "firebase/firestore/lite";
 import { useState } from "react";
 import { useRecoilState } from "recoil";

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 import { Canvas } from "@react-three/fiber";
 import ThreeModel from "../../commons/main/threeModel/threeModel";
 import * as S from "./threeMainStyles";

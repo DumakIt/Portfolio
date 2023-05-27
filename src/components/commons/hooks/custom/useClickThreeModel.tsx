@@ -4,7 +4,7 @@ import GSAP from "gsap";
 
 import { RefObject } from "react";
 import type { OrbitControls as OrbitControlsType } from "three-stdlib";
-import { responsiveCamera } from "../../utility/useCameraPosition";
+import { responsiveCamera } from "../../utility/cameraPosition";
 
 interface IUseClickThreeModelProps {
   size: Size;
@@ -16,8 +16,16 @@ interface IUseClickThreeModelProps {
   changeIsCanvasModal?: () => void;
 }
 
-export const useClickThreeModel = (args: IUseClickThreeModelProps) => {
-  const onClickTV = () => {
+interface IUseClickThreeModel {
+  onClickTV: () => void;
+  onClickCanvas: () => void;
+  onClickCancel: () => void;
+}
+
+export const useClickThreeModel = (
+  args: IUseClickThreeModelProps
+): IUseClickThreeModel => {
+  const onClickTV = (): void => {
     // tv 클릭시 카메라 이동 애니메이션 및 Modal창 열기
     const timeLine = GSAP.timeline();
 
@@ -40,7 +48,7 @@ export const useClickThreeModel = (args: IUseClickThreeModelProps) => {
     );
   };
 
-  const onClickCanvas = () => {
+  const onClickCanvas = (): void => {
     // canvas 클릭시 카메라 이동 애니메이션 및 Modal창 열기
     const timeLine = GSAP.timeline();
     timeLine.to(args.camera.position, {
@@ -62,7 +70,7 @@ export const useClickThreeModel = (args: IUseClickThreeModelProps) => {
     );
   };
 
-  const onClickCancel = () => {
+  const onClickCancel = (): void => {
     // Modal의 취소 버튼 클릭시 Modal창 닫기 및 카메라 이동 애니메이션
     const [x, y, z] = responsiveCamera(args.size);
     if (args.changeIsTvModal !== undefined) args.changeIsTvModal();

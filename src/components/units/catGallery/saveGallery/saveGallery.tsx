@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Photo, PhotoAlbum } from "react-photo-album";
 import { useRecoilState } from "recoil";
 import { catGalleryUserIdState } from "../../../../commons/stores";
-import UpdateCatModal from "../../../commons/catGalley/updateCatModal/updateCatModal";
+import UpdateCatModal from "../../../commons/catGallery/updateCatModal/updateCatModal";
 import { useEffectGetCategory } from "../../../commons/hooks/custom/useEffectGetCategory";
 import { useEffectGetCategoryImg } from "../../../commons/hooks/custom/useEffectGetCategoryImg";
 import { useSetIsToggle } from "../../../commons/hooks/custom/useSetIsToggle";

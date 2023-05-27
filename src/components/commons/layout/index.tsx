@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import CatGalleyLayout from "./catGalley/catGalleyLayout";
+import CatGalleryLayout from "./catGallery/catGalleryLayout";
 import UsedMarketLayout from "./usedMarket/usedMarketLayout";
 
 interface ILayoutPros {
@@ -18,7 +18,7 @@ export default function Layout(props: ILayoutPros): JSX.Element {
       )}
       {router.asPath.split("/")[1] === "catGallery" && (
         <>
-          <CatGalleyLayout />
+          <CatGalleryLayout />
           {props.children}
         </>
       )}

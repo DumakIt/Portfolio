@@ -1,13 +1,13 @@
 import InfiniteScroll from "react-infinite-scroller";
 import { PhotoAlbum } from "react-photo-album";
 import { useGetCatImg } from "../../../commons/hooks/custom/useGetCatImg";
-import * as S from "./catGalleyMainStyles";
+import * as S from "./catGalleryMainStyles";
 import { useSetIsToggle } from "../../../commons/hooks/custom/useSetIsToggle";
-import SaveCatModal from "../../../commons/catGalley/saveCatModal/saveCatModal";
+import SaveCatModal from "../../../commons/catGallery/saveCatModal/saveCatModal";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 
-export default function CatGalleyMain(): JSX.Element {
+export default function CatGalleryMain(): JSX.Element {
   const { catImgs, axiosCatImg } = useGetCatImg();
   const [isToggle, changeIsToggle] = useSetIsToggle();
   const [selectCat, setSelectCat] = useState<{

@@ -1,7 +1,7 @@
 import * as S from "./usedMarketMainStyles";
 import InfiniteScroll from "react-infinite-scroller";
 import { useQueryFetchUsedItems } from "../../../commons/hooks/query/useQueryFetchUseditems";
-import { CreateAtTime } from "../../../commons/utility/useCreateAtTime";
+import { CreateAtTime } from "../../../commons/utility/createAtTime";
 import { IUseditem } from "../../../../commons/types/generated/types";
 import { useRouterMovePage } from "../../../commons/hooks/custom/useRouterMovePage";
 import { v4 as uuidv4 } from "uuid";

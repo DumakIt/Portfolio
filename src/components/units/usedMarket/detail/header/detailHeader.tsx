@@ -1,4 +1,3 @@
-import { Modal } from "antd";
 import { useRecoilState } from "recoil";
 import { loggedInUserState } from "../../../../../commons/stores";
 import { IUseditem } from "../../../../../commons/types/generated/types";
